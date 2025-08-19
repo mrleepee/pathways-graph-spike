@@ -37,6 +37,18 @@ test('graph has categories, pathway node, info panel updates, thin edges', async
   });
   expect(hasPathway).toBeTruthy();
 
+  const hasNode = await page.evaluate(() => {
+    const opt = window.myChart.getOption();
+    return opt.series[0].categories.some(c => c.name === 'Node');
+  });
+  expect(hasNode).toBeTruthy();
+
+  const hasTop = await page.evaluate(() => {
+    const opt = window.myChart.getOption();
+    return opt.series[0].categories.some(c => c.name === 'Top-level category');
+  });
+  expect(hasTop).toBeTruthy();
+
   const initialInfo = await page.textContent('#info-panel');
   await page.evaluate(() => {
     const node = window.myChart.getOption().series[0].data[0];

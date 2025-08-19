@@ -71,6 +71,8 @@
       var seen = new Set();
       var clean = [];
       var pathwayLinks = [];
+      var typeByNode = new Map();
+      var topLevelNodes = new Set();
       for (var i = 0; i < edges.length; i++) {
         var e = edges[i] || {};
         if (e.pathway && e.parentNodeUri) {
@@ -78,6 +80,8 @@
           var p = String(e.pathway);
           var pn = String(e.parentNodeUri);
           if (e.label && !labelsByUri[p]) labelsByUri[p] = String(e.label).trim();
+          typeByNode.set(p, 'pathway');
+          typeByNode.set(pn, 'node');
           pathwayLinks.push({ pathway: p, parent: pn });
           continue;
         }
@@ -86,6 +90,10 @@
 
         // Record label for the child when present
         if (e.label && !labelsByUri[child]) labelsByUri[child] = String(e.label).trim();
+
+        typeByNode.set(String(child), 'node');
+        typeByNode.set(String(parent), 'node');
+        if (String(parent) === 'root') topLevelNodes.add(String(child));
 
         var k = child + '|' + parent;
         if (seen.has(k)) continue;
@@ -98,11 +106,9 @@
       var childrenByParent = new Map();
       var parentsByChild = new Map();
       var levelByNode = new Map();
-      var pathwaySet = new Set();
       pathwayLinks.forEach(function (p) {
         nodesSet.add(p.pathway);
         nodesSet.add(p.parent);
-        pathwaySet.add(p.pathway);
       });
       for (var j = 0; j < clean.length; j++) {
         var c = clean[j];
@@ -153,13 +159,20 @@
           name: label(id),
           value: id
         };
-        if (pathwaySet.has(id)) {
-          node.category = 'Pathway';
-          categoriesSet.add('Pathway');
-        } else if (lvl != null) {
-          var cat = 'Level ' + lvl;
-          node.category = cat;
-          categoriesSet.add(cat);
+        if (topLevelNodes.has(id)) {
+          node.category = 'Top-level category';
+          categoriesSet.add('Top-level category');
+        } else {
+          var t = typeByNode.get(id);
+          if (t === 'pathway') {
+            node.category = 'Pathway';
+            categoriesSet.add('Pathway');
+          } else if (t === 'node') {
+            node.category = 'Node';
+            categoriesSet.add('Node');
+          }
+        }
+        if (lvl != null) {
           var scaled = lvl * sizeFactor;
           node.size = scaled;
           node.symbolSize = scaled;
@@ -315,7 +328,7 @@
           uniqueNodes.push(n);
         }
 
-        // Categories (optional; levels not emphasized)
+        // Categories for node types
         var rawCategories = Array.isArray(graph.categories) ? graph.categories : [];
         var categoryNames = [];
         rawCategories.forEach(function (c) {
