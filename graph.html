@@ -56,7 +56,9 @@
 
   <script type="text/javascript">
     var dom = document.getElementById('container');
+    console.log('Container element:', dom);
     var myChart = echarts.init(dom, null, { renderer: 'canvas', useDirtyRect: false });
+    console.log('Chart initialized:', myChart);
     var params = new URLSearchParams(location.search);
     var view = (params.get('view') || 'graph').toLowerCase(); // 'graph' or 'tree'
     var dataFile = 'echarts_graph.json';
@@ -75,13 +77,19 @@
       var categoryByNode = new Map();
       var categoriesSet = new Set();
 
+      console.log('Processing edges:', edges.length);
+
       for (var i = 0; i < edges.length; i++) {
         var e = edges[i] || {};
         var child = e.pathwayNodeUri || e.pathway;
         var parent = e.parentNodeUri;
         var type = e.type;
         var level = e.level;
-        if (!child) continue;
+        
+        if (!child) {
+          console.log('Skipping edge without child:', e);
+          continue;
+        }
 
         if (e.label && !labelsByUri[child]) labelsByUri[child] = String(e.label).trim();
 
@@ -109,6 +117,10 @@
         }
       }
 
+      console.log('Nodes found:', nodesSet.size);
+      console.log('Links created:', clean.length);
+      console.log('Categories:', Array.from(categoriesSet));
+
       function label(uri) { return labelsByUri[uri] || uri; }
 
       var roots = [];
@@ -120,6 +132,8 @@
           if (!parentsByChild.has(n)) roots.push(n);
         });
       }
+
+      console.log('Root nodes found:', roots.length);
 
       var seenTree = new Set();
       function dfs(node) {
@@ -171,6 +185,13 @@
       var categoryOrder = ['pathway', 'node', 'top level'];
       var categories = categoryOrder.filter(function (c) { return categoriesSet.has(c); });
 
+      console.log('Final result:', { 
+        forest: forest.length, 
+        nodes: nodes.length, 
+        links: links.length, 
+        categories: categories 
+      });
+      
       return { forest: forest, nodes: nodes, links: links, categories: categories };
     }
     // ----------------------------------------------------------------------
@@ -206,24 +227,30 @@
         return resp.json();
       })
       .then(function (graph) {
+        console.log('Raw graph data:', graph);
         myChart.hideLoading();
 
         // Detect edges-only JSON and transform if needed
         var looksLikeEdgesArray = Array.isArray(graph) && graph.length > 0
           && graph[0] && typeof graph[0] === 'object'
-          && ('pathwayNodeUri' in graph[0]) && ('parentNodeUri' in graph[0]);
+          && (('pathwayNodeUri' in graph[0]) || ('pathway' in graph[0])) && ('parentNodeUri' in graph[0]);
 
+        console.log('looksLikeEdgesArray:', looksLikeEdgesArray);
         var edges = null;
         var labelsByUri = (graph && (graph.labelsByUri || graph.labels)) || {};
         if (looksLikeEdgesArray) {
           edges = graph;
+          console.log('Using edges array, length:', edges.length);
         } else if (graph && Array.isArray(graph.edges)) {
           edges = graph.edges;
           if (graph.labelsByUri || graph.labels) labelsByUri = graph.labelsByUri || graph.labels;
+          console.log('Using graph.edges, length:', edges.length);
         }
 
         if (edges) {
+          console.log('Processing edges with edgesToEcharts');
           var tr = edgesToEcharts(edges, labelsByUri);
+          console.log('Transformed result:', tr);
 
           if (view === 'tree') {
             var rootName = params.get('root');
@@ -254,7 +281,18 @@
 
           // Replace incoming graph with transformed nodes/links/categories for the force graph
           graph = { nodes: tr.nodes, links: tr.links, categories: tr.categories };
+          console.log('Graph transformed:', graph);
         }
+
+        // Add debugging info
+        console.log('Final graph object:', graph);
+        console.log('Graph.nodes:', graph.nodes);
+        console.log('Graph.links:', graph.links);
+        console.log('Graph.categories:', graph.categories);
+        var consoleDiv = document.getElementById('error-log');
+        consoleDiv.innerHTML += '<p>Raw data type: ' + (Array.isArray(graph) ? 'Array' : typeof graph) + '</p>';
+        consoleDiv.innerHTML += '<p>Raw data length: ' + (Array.isArray(graph) ? graph.length : 'N/A') + '</p>';
+        consoleDiv.innerHTML += '<p>First item: ' + JSON.stringify(Array.isArray(graph) ? graph[0] : graph).substring(0, 200) + '</p>';
 
         // --- Standard ECharts graph normalization (kept, but labels come from .name we set above) ---
         var rawNodes = Array.isArray(graph.nodes) ? graph.nodes : [];
@@ -359,7 +397,21 @@
           }]
         };
 
+        console.log('Chart option created:', option);
+        console.log('Nodes count:', uniqueNodes.length);
+        console.log('Links count:', normalizedLinks.length);
+        console.log('Categories count:', categories.length);
+
         myChart.setOption(option);
+        console.log('Chart option set successfully');
+        
+        // Add a fallback display to see what data we have
+        var container = document.getElementById('container');
+        var infoDiv = document.createElement('div');
+        infoDiv.style.cssText = 'position: fixed; top: 50px; left: 10px; background: white; border: 1px solid black; padding: 10px; z-index: 1000; max-width: 300px;';
+        infoDiv.innerHTML = '<h3>Chart Info</h3><p>Nodes: ' + uniqueNodes.length + '</p><p>Links: ' + normalizedLinks.length + '</p><p>Categories: ' + categories.length + '</p>';
+        container.appendChild(infoDiv);
+        
         var statusEl = document.getElementById('status');
         if (statusEl) statusEl.textContent = 'ready ' + dataFile + ' (' + view + ')';
       })
