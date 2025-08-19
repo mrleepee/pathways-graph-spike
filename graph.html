@@ -127,14 +127,21 @@
       var forest = roots.map(dfs);
 
       // Build graph nodes + links
+      var sizeFactor = 8; // enlarge nodes based on level (1-7 -> 8-56)
       var nodes = Array.from(nodesSet).map(function (id) {
         var lvl = levelByNode.has(id) ? levelByNode.get(id) : null;
-        return {
+        var node = {
           id: id,                // URI (used internally for linking)
           name: label(id),       // visible label on the node
           value: id,             // keep URI here for tooltip access
           // category left undefined on purpose (levels aren't very useful visually)
         };
+        if (lvl != null) {
+          var scaled = lvl * sizeFactor;
+          node.size = scaled;
+          node.symbolSize = scaled;
+        }
+        return node;
       });
 
       // Fast lookup for link augmentation
