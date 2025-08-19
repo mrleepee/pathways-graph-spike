@@ -128,6 +128,7 @@
 
       // Build graph nodes + links
       var sizeFactor = 8; // enlarge nodes based on level (1-7 -> 8-56)
+      var rootSet = new Set(roots);
       var nodes = Array.from(nodesSet).map(function (id) {
         var lvl = levelByNode.has(id) ? levelByNode.get(id) : null;
         var node = {
@@ -136,6 +137,9 @@
           value: id,             // keep URI here for tooltip access
           // category left undefined on purpose (levels aren't very useful visually)
         };
+        if (rootSet.has(id)) {
+          node.itemStyle = { color: '#2e8b57' }; // better color for top-level nodes
+        }
         if (lvl != null) {
           var scaled = lvl * sizeFactor;
           node.size = scaled;
@@ -328,6 +332,48 @@
         var hasXY = uniqueNodes.some(function (n) { return n && n.x != null && n.y != null; });
         var layoutType = hasXY ? 'none' : 'force';
 
+        // Build adjacency map to highlight full connected components
+        var adjacency = new Map();
+        normalizedLinks.forEach(function (lnk) {
+          if (!adjacency.has(lnk.source)) adjacency.set(lnk.source, new Set());
+          if (!adjacency.has(lnk.target)) adjacency.set(lnk.target, new Set());
+          adjacency.get(lnk.source).add(lnk.target);
+          adjacency.get(lnk.target).add(lnk.source);
+        });
+
+        function connectedComponent(startIdx) {
+          var seen = new Set();
+          var stack = [startIdx];
+          while (stack.length) {
+            var idx = stack.pop();
+            if (seen.has(idx)) continue;
+            seen.add(idx);
+            var nbrs = adjacency.get(idx);
+            if (nbrs) nbrs.forEach(function (n) {
+              if (!seen.has(n)) stack.push(n);
+            });
+          }
+          return seen;
+        }
+
+        function highlightConnected(params) {
+          if (params.dataType !== 'node') return;
+          var nodesToHighlight = connectedComponent(params.dataIndex);
+          var edgesToHighlight = [];
+          normalizedLinks.forEach(function (lnk, i) {
+            if (nodesToHighlight.has(lnk.source) && nodesToHighlight.has(lnk.target)) {
+              edgesToHighlight.push(i);
+            }
+          });
+          myChart.dispatchAction({ type: 'downplay', seriesIndex: 0 });
+          nodesToHighlight.forEach(function (n) {
+            myChart.dispatchAction({ type: 'highlight', seriesIndex: 0, dataType: 'node', dataIndex: n });
+          });
+          edgesToHighlight.forEach(function (eIdx) {
+            myChart.dispatchAction({ type: 'highlight', seriesIndex: 0, dataType: 'edge', dataIndex: eIdx });
+          });
+        }
+
         option = {
           title: { text: 'Pathway Graph', subtext: dataFile, top: 'top', left: 'left' },
           tooltip: { trigger: 'item', formatter: makeTooltipFormatter('graph') },
@@ -342,16 +388,22 @@
             data: uniqueNodes,
             links: normalizedLinks,
             categories: categories,
-            roam: true,
+            roam: 'scale',
+            draggable: true,
             label: { position: 'right', formatter: '{b}', show: true }, // keep labels visible
             lineStyle: { color: 'source', curveness: 0.3 },
-            emphasis: { focus: 'adjacency', lineStyle: { width: 10 } },
+            emphasis: { focus: 'none', lineStyle: { width: 10 } },
             force: hasXY ? undefined : { repulsion: 180, edgeLength: [60, 140] },
             edgeSymbol: ['none', 'arrow']
           }]
         };
 
         myChart.setOption(option);
+        myChart.on('mouseover', highlightConnected);
+        myChart.on('click', highlightConnected);
+        myChart.on('globalout', function () {
+          myChart.dispatchAction({ type: 'downplay', seriesIndex: 0 });
+        });
         var statusEl = document.getElementById('status');
         if (statusEl) statusEl.textContent = 'ready ' + dataFile + ' (' + view + ')';
       })
