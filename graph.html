@@ -44,10 +44,10 @@
 <body style="height: 100%; margin: 0">
   <div id="status" style="position:fixed;top:0;right:0;background:#eef;color:#222;padding:4px 6px;font:12px/1.2 monospace;z-index:99998">loading</div>
   <div id="controls" style="position:fixed;top:0;left:0;background:#eef;color:#222;padding:4px 6px;font:12px/1.2 monospace;z-index:99998">
-    Data:
-    <a href="?data=echarts_graph.json">echarts_graph.json</a>
+    View:
+    <a href="?view=graph">graph</a>
     |
-    <a href="?data=pathways.json">pathways.json</a>
+    <a href="?view=tree">tree</a>
   </div>
   <div id="error-log" data-has-errors="false" style="position:fixed;bottom:0;left:0;right:0;max-height:30%;overflow:auto;background:rgba(0,0,0,0.8);color:#fdd;font:12px/1.4 monospace;padding:6px;z-index:99999"></div>
   <div id="container" style="height: 100%"></div>
@@ -58,20 +58,9 @@
     var dom = document.getElementById('container');
     var myChart = echarts.init(dom, null, { renderer: 'canvas', useDirtyRect: false });
     var params = new URLSearchParams(location.search);
-    var dataFile = params.get('data') || 'echarts_graph.json';
     var view = (params.get('view') || 'graph').toLowerCase(); // 'graph' or 'tree'
+    var dataFile = 'echarts_graph.json';
     var option;
-
-    // Add dynamic view links that preserve the chosen data file
-    (function () {
-      var c = document.getElementById('controls');
-      if (!c) return;
-      var links = ' | View: '
-        + '<a href="?data=' + encodeURIComponent(dataFile) + '&view=graph">graph</a>'
-        + ' | '
-        + '<a href="?data=' + encodeURIComponent(dataFile) + '&view=tree">tree</a>';
-      c.insertAdjacentHTML('beforeend', links);
-    })();
 
     // --- Edge list -> ECharts converter (uses edge.label for node labels) ---
     function edgesToEcharts(edges, labelsByUri) {
