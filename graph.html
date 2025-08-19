@@ -66,53 +66,61 @@
     function edgesToEcharts(edges, labelsByUri) {
       labelsByUri = labelsByUri || {};
 
-      // Dedup edges and harvest labels found on edges for the CHILD node
       var seen = new Set();
       var clean = [];
-      for (var i = 0; i < edges.length; i++) {
-        var e = edges[i] || {};
-        var child = e.pathwayNodeUri, parent = e.parentNodeUri, level = e.level;
-        if (!child || !parent) continue;
-
-        // Record label for the child when present
-        if (e.label && !labelsByUri[child]) labelsByUri[child] = String(e.label).trim();
-
-        var k = child + '|' + parent;
-        if (seen.has(k)) continue;
-        seen.add(k);
-        clean.push({ child: String(child), parent: String(parent), level: level });
-      }
-
-      // Build indices/maps
       var nodesSet = new Set();
       var childrenByParent = new Map();
       var parentsByChild = new Map();
       var levelByNode = new Map();
-      for (var j = 0; j < clean.length; j++) {
-        var c = clean[j];
-        nodesSet.add(c.child);
-        nodesSet.add(c.parent);
-        if (!childrenByParent.has(c.parent)) childrenByParent.set(c.parent, new Set());
-        childrenByParent.get(c.parent).add(c.child);
-        if (!parentsByChild.has(c.child)) parentsByChild.set(c.child, new Set());
-        parentsByChild.get(c.child).add(c.parent);
-        if (c.level != null && !levelByNode.has(c.child)) levelByNode.set(c.child, c.level);
+      var categoryByNode = new Map();
+      var categoriesSet = new Set();
+
+      for (var i = 0; i < edges.length; i++) {
+        var e = edges[i] || {};
+        var child = e.pathwayNodeUri || e.pathway;
+        var parent = e.parentNodeUri;
+        var type = e.type;
+        var level = e.level;
+        if (!child) continue;
+
+        if (e.label && !labelsByUri[child]) labelsByUri[child] = String(e.label).trim();
+
+        var category = 'node';
+        if (type === 'pathway') category = 'pathway';
+        if (type === 'node' && parent === 'root') category = 'top level';
+        categoryByNode.set(child, category);
+        categoriesSet.add(category);
+        if (level != null && !levelByNode.has(child)) levelByNode.set(child, level);
+        nodesSet.add(child);
+
+        if (parent && parent !== 'root') {
+          if (!categoryByNode.has(parent)) categoryByNode.set(parent, 'node');
+          categoriesSet.add('node');
+          nodesSet.add(parent);
+          if (!childrenByParent.has(parent)) childrenByParent.set(parent, new Set());
+          childrenByParent.get(parent).add(child);
+          if (!parentsByChild.has(child)) parentsByChild.set(child, new Set());
+          parentsByChild.get(child).add(parent);
+
+          var k = child + '|' + parent;
+          if (seen.has(k)) continue;
+          seen.add(k);
+          clean.push({ child: String(child), parent: String(parent) });
+        }
       }
 
       function label(uri) { return labelsByUri[uri] || uri; }
 
-      // Roots: nodes that are parents but never children
       var roots = [];
       childrenByParent.forEach(function (_kids, p) {
         if (!parentsByChild.has(p)) roots.push(p);
       });
-      if (!roots.length) { // fallback
+      if (!roots.length) {
         nodesSet.forEach(function (n) {
-          if (!childrenByParent.has(n)) roots.push(n);
+          if (!parentsByChild.has(n)) roots.push(n);
         });
       }
 
-      // Build tree(s)
       var seenTree = new Set();
       function dfs(node) {
         if (seenTree.has(node)) {
@@ -126,15 +134,14 @@
       }
       var forest = roots.map(dfs);
 
-      // Build graph nodes + links
       var sizeFactor = 8; // enlarge nodes based on level (1-7 -> 8-56)
       var nodes = Array.from(nodesSet).map(function (id) {
         var lvl = levelByNode.has(id) ? levelByNode.get(id) : null;
         var node = {
-          id: id,                // URI (used internally for linking)
-          name: label(id),       // visible label on the node
-          value: id,             // keep URI here for tooltip access
-          // category left undefined on purpose (levels aren't very useful visually)
+          id: id,
+          name: label(id),
+          value: id,
+          category: categoryByNode.get(id)
         };
         if (lvl != null) {
           var scaled = lvl * sizeFactor;
@@ -144,7 +151,6 @@
         return node;
       });
 
-      // Fast lookup for link augmentation
       var idToIndex = new Map(nodes.map(function (n, i) { return [n.id, i]; }));
 
       var links = clean
@@ -155,7 +161,6 @@
           return {
             source: sIdx,
             target: tIdx,
-            // enrich edge tooltip
             sourceUri: nodes[sIdx].id,
             targetUri: nodes[tIdx].id,
             sourceLabel: nodes[sIdx].name,
@@ -163,7 +168,10 @@
           };
         });
 
-      return { forest: forest, nodes: nodes, links: links, categories: [] };
+      var categoryOrder = ['pathway', 'node', 'top level'];
+      var categories = categoryOrder.filter(function (c) { return categoriesSet.has(c); });
+
+      return { forest: forest, nodes: nodes, links: links, categories: categories };
     }
     // ----------------------------------------------------------------------
 
