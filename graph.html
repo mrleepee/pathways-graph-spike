@@ -49,6 +49,7 @@
     |
     <a href="?view=tree">tree</a>
   </div>
+  <div id="info-panel" style="position:fixed;top:22px;left:0;background:#eef;color:#222;padding:4px 6px;font:12px/1.2 monospace;z-index:99998">Click a node to view details.</div>
   <div id="error-log" data-has-errors="false" style="position:fixed;bottom:0;left:0;right:0;max-height:30%;overflow:auto;background:rgba(0,0,0,0.8);color:#fdd;font:12px/1.4 monospace;padding:6px;z-index:99999"></div>
   <div id="container" style="height: 100%"></div>
 
@@ -69,8 +70,17 @@
       // Dedup edges and harvest labels found on edges for the CHILD node
       var seen = new Set();
       var clean = [];
+      var pathwayLinks = [];
       for (var i = 0; i < edges.length; i++) {
         var e = edges[i] || {};
+        if (e.pathway && e.parentNodeUri) {
+          // Pathway reference -> create node + link
+          var p = String(e.pathway);
+          var pn = String(e.parentNodeUri);
+          if (e.label && !labelsByUri[p]) labelsByUri[p] = String(e.label).trim();
+          pathwayLinks.push({ pathway: p, parent: pn });
+          continue;
+        }
         var child = e.pathwayNodeUri, parent = e.parentNodeUri, level = e.level;
         if (!child || !parent) continue;
 
@@ -88,6 +98,12 @@
       var childrenByParent = new Map();
       var parentsByChild = new Map();
       var levelByNode = new Map();
+      var pathwaySet = new Set();
+      pathwayLinks.forEach(function (p) {
+        nodesSet.add(p.pathway);
+        nodesSet.add(p.parent);
+        pathwaySet.add(p.pathway);
+      });
       for (var j = 0; j < clean.length; j++) {
         var c = clean[j];
         nodesSet.add(c.child);
@@ -129,24 +145,32 @@
       // Build graph nodes + links
       var sizeFactor = 8; // enlarge nodes based on level (1-7 -> 8-56)
       var rootSet = new Set(roots);
+      var categoriesSet = new Set();
       var nodes = Array.from(nodesSet).map(function (id) {
         var lvl = levelByNode.has(id) ? levelByNode.get(id) : null;
         var node = {
-          id: id,                // URI (used internally for linking)
-          name: label(id),       // visible label on the node
-          value: id,             // keep URI here for tooltip access
-          // category left undefined on purpose (levels aren't very useful visually)
+          id: id,
+          name: label(id),
+          value: id
         };
-        if (rootSet.has(id)) {
-          node.itemStyle = { color: '#2e8b57' }; // better color for top-level nodes
-        }
-        if (lvl != null) {
+        if (pathwaySet.has(id)) {
+          node.category = 'Pathway';
+          categoriesSet.add('Pathway');
+        } else if (lvl != null) {
+          var cat = 'Level ' + lvl;
+          node.category = cat;
+          categoriesSet.add(cat);
           var scaled = lvl * sizeFactor;
           node.size = scaled;
           node.symbolSize = scaled;
         }
+        if (rootSet.has(id)) {
+          node.itemStyle = { color: '#2e8b57' };
+        }
         return node;
       });
+
+      var categories = Array.from(categoriesSet).map(function (name) { return { name: name }; });
 
       // Fast lookup for link augmentation
       var idToIndex = new Map(nodes.map(function (n, i) { return [n.id, i]; }));
@@ -159,7 +183,6 @@
           return {
             source: sIdx,
             target: tIdx,
-            // enrich edge tooltip
             sourceUri: nodes[sIdx].id,
             targetUri: nodes[tIdx].id,
             sourceLabel: nodes[sIdx].name,
@@ -167,7 +190,23 @@
           };
         });
 
-      return { forest: forest, nodes: nodes, links: links, categories: [] };
+      // Links for pathways
+      pathwayLinks.forEach(function (p) {
+        if (idToIndex.has(p.pathway) && idToIndex.has(p.parent)) {
+          var sIdx = idToIndex.get(p.pathway);
+          var tIdx = idToIndex.get(p.parent);
+          links.push({
+            source: sIdx,
+            target: tIdx,
+            sourceUri: nodes[sIdx].id,
+            targetUri: nodes[tIdx].id,
+            sourceLabel: nodes[sIdx].name,
+            targetLabel: nodes[tIdx].name
+          });
+        }
+      });
+
+      return { forest: forest, nodes: nodes, links: links, categories: categories };
     }
     // ----------------------------------------------------------------------
 
@@ -391,8 +430,8 @@
             roam: 'scale',
             draggable: true,
             label: { position: 'right', formatter: '{b}', show: true }, // keep labels visible
-            lineStyle: { color: 'source', curveness: 0.3 },
-            emphasis: { focus: 'none', lineStyle: { width: 10 } },
+            lineStyle: { width: 1, color: 'source', curveness: 0.3 },
+            emphasis: { focus: 'none', lineStyle: { width: 2 } },
             force: hasXY ? undefined : { repulsion: 180, edgeLength: [60, 140] },
             edgeSymbol: ['none', 'arrow']
           }]
@@ -400,7 +439,13 @@
 
         myChart.setOption(option);
         myChart.on('mouseover', highlightConnected);
-        myChart.on('click', highlightConnected);
+        myChart.on('click', function (params) {
+          highlightConnected(params);
+          if (params.dataType === 'node') {
+            var infoEl = document.getElementById('info-panel');
+            if (infoEl) infoEl.textContent = params.data.name + ' (' + params.data.value + ')';
+          }
+        });
         myChart.on('globalout', function () {
           myChart.dispatchAction({ type: 'downplay', seriesIndex: 0 });
         });
