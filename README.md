@@ -1,6 +1,6 @@
-# Pathways Graph Visualization
+# Pathways Graph Visualization - Spike Version
 
-A web-based visualization tool for displaying biological pathway relationships using ECharts and SPARQL data processing.
+A web-based visualization tool for displaying biological pathway relationships using ECharts and SPARQL data processing. This is the spike/prototype version for experimentation and rapid development.
 
 ## 🚀 Features
 
