@@ -2,10 +2,11 @@
 	THIS EXAMPLE WAS DOWNLOADED FROM https://echarts.apache.org/examples/en/editor.html?c=graph
 -->
 <!DOCTYPE html>
-<html lang="en" style="height: 100%">
+<html lang="en" class="h-full">
 <head>
   <meta charset="utf-8">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Crect width='16' height='16' fill='%234cc'%3E%3C/rect%3E%3C/svg%3E">
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
     (function () {
       var originalConsoleError = console.error && console.error.bind(console);
@@ -41,17 +42,21 @@
     })();
   </script>
 </head>
-<body style="height: 100%; margin: 0">
-  <div id="status" style="position:fixed;top:0;right:0;background:#eef;color:#222;padding:4px 6px;font:12px/1.2 monospace;z-index:99998">loading</div>
-  <div id="controls" style="position:fixed;top:0;left:0;background:#eef;color:#222;padding:4px 6px;font:12px/1.2 monospace;z-index:99998">
-    View:
-    <a href="?view=graph">graph</a>
-    |
-    <a href="?view=tree">tree</a>
+<body class="h-full flex flex-col">
+  <div class="bg-gray-100 p-4 flex flex-col space-y-2">
+    <div class="flex items-center space-x-2">
+      <label for="protein-uri" class="font-medium">Protein URI</label>
+      <input id="protein-uri" type="text" value="protein/b22c31bd-9452-3c21-8dba-ce524c489003" class="border rounded p-2 flex-1 w-[100ch]">
+      <button id="go-button" class="bg-blue-500 text-white px-4 py-2 rounded">Go</button>
+      <div id="status" class="ml-auto text-sm text-gray-600">loading</div>
+    </div>
+    <div class="flex items-center space-x-4 text-sm">
+      <div id="controls">View: <a href="?view=graph" class="text-blue-600 underline">graph</a> | <a href="?view=tree" class="text-blue-600 underline">tree</a></div>
+      <div id="info-panel">Click a node to view details.</div>
+    </div>
   </div>
-  <div id="info-panel" style="position:fixed;top:22px;left:0;background:#eef;color:#222;padding:4px 6px;font:12px/1.2 monospace;z-index:99998">Click a node to view details.</div>
-  <div id="error-log" data-has-errors="false" style="position:fixed;bottom:0;left:0;right:0;max-height:30%;overflow:auto;background:rgba(0,0,0,0.8);color:#fdd;font:12px/1.4 monospace;padding:6px;z-index:99999"></div>
-  <div id="container" style="height: 100%"></div>
+  <div id="container" class="flex-1"></div>
+  <div id="error-log" data-has-errors="false" class="bg-gray-800 text-red-300 p-2 overflow-auto max-h-32"></div>
 
   <script type="text/javascript" src="./echarts.min.js"></script>
 
@@ -244,17 +249,18 @@
       };
     }
 
-    var statusElInit = document.getElementById('status');
-    if (statusElInit) statusElInit.textContent = 'loading ' + dataFile + (view ? ' (' + view + ')' : '');
-    myChart.showLoading();
+    function loadGraph(dataFile) {
+      var statusElInit = document.getElementById('status');
+      if (statusElInit) statusElInit.textContent = 'loading ' + dataFile + (view ? ' (' + view + ')' : '');
+      myChart.showLoading();
 
-    fetch(dataFile)
-      .then(function (resp) {
-        if (!resp.ok) throw new Error('HTTP ' + resp.status + ' ' + resp.statusText);
-        return resp.json();
-      })
-      .then(function (graph) {
-        myChart.hideLoading();
+      fetch(dataFile)
+        .then(function (resp) {
+          if (!resp.ok) throw new Error('HTTP ' + resp.status + ' ' + resp.statusText);
+          return resp.json();
+        })
+        .then(function (graph) {
+          myChart.hideLoading();
 
         // Detect edges-only JSON and transform if needed
         var looksLikeEdgesArray = Array.isArray(graph) && graph.some(function (row) {
@@ -462,18 +468,25 @@
         myChart.on('globalout', function () {
           myChart.dispatchAction({ type: 'downplay', seriesIndex: 0 });
         });
-        var statusEl = document.getElementById('status');
-        if (statusEl) statusEl.textContent = 'ready ' + dataFile + ' (' + view + ')';
-      })
-      .catch(function (err) {
-        console.error('fetchError:', dataFile, String(err && err.message ? err.message : err));
-        var statusEl = document.getElementById('status');
-        if (statusEl) statusEl.textContent = 'error ' + dataFile;
-      });
-
-    if (option && typeof option === 'object') {
-      myChart.setOption(option);
+          var statusEl = document.getElementById('status');
+          if (statusEl) statusEl.textContent = 'ready ' + dataFile + ' (' + view + ')';
+        })
+        .catch(function (err) {
+          console.error('fetchError:', dataFile, String(err && err.message ? err.message : err));
+          var statusEl = document.getElementById('status');
+          if (statusEl) statusEl.textContent = 'error ' + dataFile;
+        });
     }
+
+    loadGraph(dataFile);
+
+    document.getElementById('go-button').addEventListener('click', function () {
+      var uri = document.getElementById('protein-uri').value.trim();
+      if (!uri) return;
+      var url = 'http://localhost:9324/prototypes/pathways/pathway-graph.xqy?protein-uri=' + encodeURIComponent(uri);
+      loadGraph(url);
+    });
+
     window.addEventListener('resize', myChart.resize);
   </script>
 </body>
