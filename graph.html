@@ -205,9 +205,9 @@
         myChart.hideLoading();
 
         // Detect edges-only JSON and transform if needed
-        var looksLikeEdgesArray = Array.isArray(graph) && graph.length > 0
-          && graph[0] && typeof graph[0] === 'object'
-          && ('pathwayNodeUri' in graph[0]) && ('parentNodeUri' in graph[0]);
+        var looksLikeEdgesArray = Array.isArray(graph) && graph.some(function (row) {
+          return row && typeof row === 'object' && ('pathwayNodeUri' in row) && ('parentNodeUri' in row);
+        });
 
         var edges = null;
         var labelsByUri = (graph && (graph.labelsByUri || graph.labels)) || {};
