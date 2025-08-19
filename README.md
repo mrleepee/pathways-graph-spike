@@ -67,7 +67,7 @@ The script expects JSON with the following structure:
     {
       "id": "node-uri",
       "name": "Node Name - ID",
-      "category": "node|step"
+      "category": "node"  // or "pathway" / "top level"
     }
   ],
   "links": [
@@ -77,8 +77,9 @@ The script expects JSON with the following structure:
     }
   ],
   "categories": [
+    {"name": "pathway"},
     {"name": "node"},
-    {"name": "step"}
+    {"name": "top level"}
   ]
 }
 ```
@@ -86,8 +87,9 @@ The script expects JSON with the following structure:
 ## 🔧 Customization
 
 ### Node Categories
-- **node**: Main pathway nodes
-- **step**: Pathway step nodes with additional metadata
+- **pathway**: Pathway entries linked to a pathway node
+- **node**: Intermediate pathway nodes
+- **top level**: Node entries whose `parentNodeUri` is `root`
 
 ### Label Format
 Nodes display as "Name - ID" where:
