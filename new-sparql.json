@@ -1,0 +1,42 @@
+[
+    {
+        "firstNode": "<pathway-node/pt/reactome/d712e77f-e1bd-32da-b73a-a6443d1bffc9>",
+        "firstLabel": "\"NGF-stimulated transcription\"",
+        "parentNode": "<pathway-node/pt/reactome/2b8297ff-2040-3c19-ba54-081a45886740>",
+        "parentLabel": "\"Signal Transduction\"",
+        "branchPathway": null,
+        "branchLabel": null
+    },
+    {
+        "firstNode": "<pathway-node/pt/reactome/d712e77f-e1bd-32da-b73a-a6443d1bffc9>",
+        "firstLabel": "\"NGF-stimulated transcription\"",
+        "parentNode": "<pathway-node/pt/reactome/2d3a92b2-09bf-3148-85b5-f5c54c254028>",
+        "parentLabel": "\"Signaling by NTRKs\"",
+        "branchPathway": "<pathway/acf4ed3f-b126-32f2-85a1-7dbaa786f45e>",
+        "branchLabel": "\"Signaling by NTRKs\""
+    },
+    {
+        "firstNode": "<pathway-node/pt/reactome/d712e77f-e1bd-32da-b73a-a6443d1bffc9>",
+        "firstLabel": "\"NGF-stimulated transcription\"",
+        "parentNode": "<pathway-node/pt/reactome/90207a57-8f21-3a48-94ab-07059245f8e5>",
+        "parentLabel": "\"Signaling by NTRK1 (TRKA)\"",
+        "branchPathway": "<pathway/0028ecaa-d631-3c19-a282-b5aed1fc7f51>",
+        "branchLabel": "\"Signaling by NTRK1 (TRKA)\""
+    },
+    {
+        "firstNode": "<pathway-node/pt/reactome/d712e77f-e1bd-32da-b73a-a6443d1bffc9>",
+        "firstLabel": "\"NGF-stimulated transcription\"",
+        "parentNode": "<pathway-node/pt/reactome/cfb796d3-49bb-3103-bbdc-1bf0c6d0558e>",
+        "parentLabel": "\"Signaling by Receptor Tyrosine Kinases\"",
+        "branchPathway": "<pathway/b1f47057-dc9a-3ef7-8599-e7d9e01c9e5e>",
+        "branchLabel": "\"Signaling by Receptor Tyrosine Kinases\""
+    },
+    {
+        "firstNode": "<pathway-node/pt/reactome/d712e77f-e1bd-32da-b73a-a6443d1bffc9>",
+        "firstLabel": "\"NGF-stimulated transcription\"",
+        "parentNode": "<pathway-node/pt/reactome/d30fa04b-2ff3-3720-9db2-e9e1c8f5e4a2>",
+        "parentLabel": "\"Nuclear Events (kinase and transcription factor activation)\"",
+        "branchPathway": "<pathway/bc3c1c4e-e0ed-3ae8-83b1-34bc3294fe64>",
+        "branchLabel": "\"Nuclear Events (kinase and transcription factor activation)\""
+    }
+]

@@ -1,0 +1,1565 @@
+{
+    "nodes": [
+        {
+            "id": "pathway-node/pt/reactome/0480d0ea-7666-3a79-a017-2b67f83c729a",
+            "name": "Toll Like Receptor 10 (TLR10) Cascade",
+            "value": "Toll Like Receptor 10 (TLR10) Cascade",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/24d3e65d-3dd0-3eef-826f-3fd4597d111f",
+            "node-id": "pathway-node/pt/reactome/0480d0ea-7666-3a79-a017-2b67f83c729a",
+            "name": "Toll Like Receptor 10 (TLR10) Cascade",
+            "value": "Toll Like Receptor 10 (TLR10) Cascade",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/c408143c-a75b-3575-90df-08ab3e758482",
+            "name": "Toll Like Receptor 2 (TLR2) Cascade",
+            "value": "Toll Like Receptor 2 (TLR2) Cascade",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/82775587-ffe1-3da8-8174-ca29f83b5d0b",
+            "node-id": "pathway-node/pt/reactome/c408143c-a75b-3575-90df-08ab3e758482",
+            "name": "Toll Like Receptor 2 (TLR2) Cascade",
+            "value": "Toll Like Receptor 2 (TLR2) Cascade",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/cas/6dc154af-5fff-3428-9e90-ebd8770f4fc6",
+            "name": "TLR3 pathway",
+            "value": "TLR3 pathway",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/d222f794-fb7e-3051-89fc-7b285ef31e00",
+            "node-id": "pathway-node/pt/cas/6dc154af-5fff-3428-9e90-ebd8770f4fc6",
+            "name": "dsRNA ---> IKK-alpha:IKK-beta{p}:IKK-gamma",
+            "value": "dsRNA ---> IKK-alpha:IKK-beta{p}:IKK-gamma",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/b77ca2bd-96b6-393a-b9d1-00daa848267d",
+            "node-id": "pathway-node/pt/cas/6dc154af-5fff-3428-9e90-ebd8770f4fc6",
+            "name": "TAK1 ---> ATF-2",
+            "value": "TAK1 ---> ATF-2",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/36702221-e0eb-38a3-b10c-8a4221436d4c",
+            "node-id": "pathway-node/pt/cas/6dc154af-5fff-3428-9e90-ebd8770f4fc6",
+            "name": "dsRNA ---> c-Jun",
+            "value": "dsRNA ---> c-Jun",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/83a5325d-5a78-396b-8e41-929cc005f08d",
+            "node-id": "pathway-node/pt/cas/6dc154af-5fff-3428-9e90-ebd8770f4fc6",
+            "name": "TLR3 pathway",
+            "value": "TLR3 pathway",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/85a9fb4a-e98e-3493-862a-0c1efff8fbed",
+            "node-id": "pathway-node/pt/cas/6dc154af-5fff-3428-9e90-ebd8770f4fc6",
+            "name": "dsRNA ---> p50:RelA",
+            "value": "dsRNA ---> p50:RelA",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/8f515e99-3138-39bd-8644-e6c309962c8c",
+            "name": "IRAK2 mediated activation of TAK1 complex upon TLR7/8 or 9 stimulation",
+            "value": "IRAK2 mediated activation of TAK1 complex upon TLR7/8 or 9 stimulation",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/5104717c-49da-3a03-903c-bc98a7e59a31",
+            "node-id": "pathway-node/pt/reactome/8f515e99-3138-39bd-8644-e6c309962c8c",
+            "name": "IRAK2 mediated activation of TAK1 complex upon TLR7/8 or 9 stimulation",
+            "value": "IRAK2 mediated activation of TAK1 complex upon TLR7/8 or 9 stimulation",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/b09664b5-fb9b-3e04-910f-80040db15ce6",
+            "name": "Downstream TCR signaling",
+            "value": "Downstream TCR signaling",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/2889b3a5-f400-3296-a7af-06440088dcc3",
+            "node-id": "pathway-node/pt/reactome/b09664b5-fb9b-3e04-910f-80040db15ce6",
+            "name": "Downstream TCR signaling",
+            "value": "Downstream TCR signaling",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/d932564a-20ff-30d7-bc88-8c9331e46b49",
+            "name": "Toll Like Receptor 7/8 (TLR7/8) Cascade",
+            "value": "Toll Like Receptor 7/8 (TLR7/8) Cascade",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/8ba1dd51-69a7-31f2-a70d-b4dadf3703a5",
+            "node-id": "pathway-node/pt/reactome/d932564a-20ff-30d7-bc88-8c9331e46b49",
+            "name": "Toll Like Receptor 7/8 (TLR7/8) Cascade",
+            "value": "Toll Like Receptor 7/8 (TLR7/8) Cascade",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/cas/edb5125f-9288-3062-a045-5f30f7607baf",
+            "name": "TLR9 pathway",
+            "value": "TLR9 pathway",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/538df6ae-184c-3693-91c5-34c9b07a59dc",
+            "node-id": "pathway-node/pt/cas/edb5125f-9288-3062-a045-5f30f7607baf",
+            "name": "TLR9 ---IRF-7---> IFNA",
+            "value": "TLR9 ---IRF-7---> IFNA",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/09b719a8-c429-39c3-9037-8849166360d6",
+            "node-id": "pathway-node/pt/cas/edb5125f-9288-3062-a045-5f30f7607baf",
+            "name": "IRAK-1 ---MKK4---> TNF",
+            "value": "IRAK-1 ---MKK4---> TNF",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/b92b46ad-26c3-3f01-a7a5-79a6c7814716",
+            "node-id": "pathway-node/pt/cas/edb5125f-9288-3062-a045-5f30f7607baf",
+            "name": "TLR9 ---IRAK1---> MKK3, MKK4",
+            "value": "TLR9 ---IRAK1---> MKK3, MKK4",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/5b74fffd-291f-3439-8f3a-b551d90a7989",
+            "node-id": "pathway-node/pt/cas/edb5125f-9288-3062-a045-5f30f7607baf",
+            "name": "IRAK-1 ---MKK3---> TNF",
+            "value": "IRAK-1 ---MKK3---> TNF",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/8eb415f8-ca6c-33db-974b-97b061b6964c",
+            "node-id": "pathway-node/pt/cas/edb5125f-9288-3062-a045-5f30f7607baf",
+            "name": "TLR9 pathway",
+            "value": "TLR9 pathway",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/347202ec-b8c4-307f-ba0e-40bc6509b1f4",
+            "name": "Toll Like Receptor 3 (TLR3) Cascade",
+            "value": "Toll Like Receptor 3 (TLR3) Cascade",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/84060113-c8ae-3107-81db-c0f25c687d28",
+            "node-id": "pathway-node/pt/reactome/347202ec-b8c4-307f-ba0e-40bc6509b1f4",
+            "name": "Toll Like Receptor 3 (TLR3) Cascade",
+            "value": "Toll Like Receptor 3 (TLR3) Cascade",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/cas/dc7a42fb-5caf-34e0-be1a-fd86126dcd4e",
+            "name": "neurotrophic signaling",
+            "value": "neurotrophic signaling",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/73e89903-47f9-3937-a2ff-19acd15d3500",
+            "node-id": "pathway-node/pt/cas/dc7a42fb-5caf-34e0-be1a-fd86126dcd4e",
+            "name": "BDNF ---p75NTR---> NRIF ubiquitination",
+            "value": "BDNF ---p75NTR---> NRIF ubiquitination",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/c4b070b3-b349-3f79-bc97-2988a2c865ac",
+            "node-id": "pathway-node/pt/cas/dc7a42fb-5caf-34e0-be1a-fd86126dcd4e",
+            "name": "NGF ---p75NTR---> p50:RelA-p65",
+            "value": "NGF ---p75NTR---> p50:RelA-p65",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/85f91626-acb9-3226-acd3-6353a35e7eae",
+            "node-id": "pathway-node/pt/cas/dc7a42fb-5caf-34e0-be1a-fd86126dcd4e",
+            "name": "neurotrophic signaling",
+            "value": "neurotrophic signaling",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/bfd0ef00-4441-3519-8c86-bdf6f23209ba",
+            "node-id": "pathway-node/pt/cas/dc7a42fb-5caf-34e0-be1a-fd86126dcd4e",
+            "name": "NGF ---TRAF6---> trkA K63-poly-ubiquitinated",
+            "value": "NGF ---TRAF6---> trkA K63-poly-ubiquitinated",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/ccbf4a5a-d6a2-3ac7-91d4-d252f19b5c54",
+            "name": "Interleukin-1 family signaling",
+            "value": "Interleukin-1 family signaling",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/e313bcfa-d90f-3fe0-972d-eb3135ca102f",
+            "node-id": "pathway-node/pt/reactome/ccbf4a5a-d6a2-3ac7-91d4-d252f19b5c54",
+            "name": "Interleukin-1 family signaling",
+            "value": "Interleukin-1 family signaling",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/6366967c-9665-35f7-a133-2117c2b755cc",
+            "name": "p75 NTR receptor-mediated signalling",
+            "value": "p75 NTR receptor-mediated signalling",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/c6b9266a-1f93-3432-bddf-b0f5539dec31",
+            "node-id": "pathway-node/pt/reactome/6366967c-9665-35f7-a133-2117c2b755cc",
+            "name": "p75 NTR receptor-mediated signalling",
+            "value": "p75 NTR receptor-mediated signalling",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/7702a4a8-51ec-370a-977b-41e099c9de7f",
+            "name": "Cytokine Signaling in Immune system",
+            "value": "Cytokine Signaling in Immune system",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/09cedb3d-d581-3517-913e-7e3135762f1f",
+            "node-id": "pathway-node/pt/reactome/7702a4a8-51ec-370a-977b-41e099c9de7f",
+            "name": "Cytokine Signaling in Immune system",
+            "value": "Cytokine Signaling in Immune system",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/cas/19f7c437-8a08-35ef-baf3-07d64e45072c",
+            "name": "IL-1 pathway",
+            "value": "IL-1 pathway",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/bc922a26-e9af-36ee-9725-593f24ea0727",
+            "node-id": "pathway-node/pt/cas/19f7c437-8a08-35ef-baf3-07d64e45072c",
+            "name": "IL-1 pathway",
+            "value": "IL-1 pathway",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/37bacad9-323d-397f-931f-140aa5897c45",
+            "node-id": "pathway-node/pt/cas/19f7c437-8a08-35ef-baf3-07d64e45072c",
+            "name": "IL-1beta ---> c-Jun",
+            "value": "IL-1beta ---> c-Jun",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/45a2ff26-67aa-32b1-92e2-d2140511606f",
+            "node-id": "pathway-node/pt/cas/19f7c437-8a08-35ef-baf3-07d64e45072c",
+            "name": "IL-1beta ---> Elk-1",
+            "value": "IL-1beta ---> Elk-1",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/131f7814-a389-35f5-a038-aae7cfe750e6",
+            "node-id": "pathway-node/pt/cas/19f7c437-8a08-35ef-baf3-07d64e45072c",
+            "name": "IL-1beta ---> p50:RelA",
+            "value": "IL-1beta ---> p50:RelA",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/91fe67ee-fde3-3ff5-8489-368b676e657e",
+            "node-id": "pathway-node/pt/cas/19f7c437-8a08-35ef-baf3-07d64e45072c",
+            "name": "IL-1beta ---> ATF-2",
+            "value": "IL-1beta ---> ATF-2",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/489170f2-eae2-3432-9d5b-4a7a17d14582",
+            "node-id": "pathway-node/pt/cas/19f7c437-8a08-35ef-baf3-07d64e45072c",
+            "name": "IL-1beta ---> ATF-5",
+            "value": "IL-1beta ---> ATF-5",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/320e6523-8113-36a5-9276-0a7850795c71",
+            "name": "C-type lectin receptors (CLRs)",
+            "value": "C-type lectin receptors (CLRs)",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/cd4dce44-3df9-37be-a58e-b48606ccfeac",
+            "node-id": "pathway-node/pt/reactome/320e6523-8113-36a5-9276-0a7850795c71",
+            "name": "C-type lectin receptors (CLRs)",
+            "value": "C-type lectin receptors (CLRs)",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/cas/c3bbe269-3970-3a5c-84f6-ece6cfa0bac7",
+            "name": "TGFbeta pathway",
+            "value": "TGFbeta pathway",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/b96ca599-febe-3bba-b5ab-adaff17a109a",
+            "node-id": "pathway-node/pt/cas/c3bbe269-3970-3a5c-84f6-ece6cfa0bac7",
+            "name": "TGFbeta1 ---Tak1---> p38, JNK",
+            "value": "TGFbeta1 ---Tak1---> p38, JNK",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/0f73f12f-66ae-34c2-be5f-a3c4c5df6430",
+            "node-id": "pathway-node/pt/cas/c3bbe269-3970-3a5c-84f6-ece6cfa0bac7",
+            "name": "TGFbeta pathway",
+            "value": "TGFbeta pathway",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/4d19f89b-b088-33d8-b9a9-a744133f44a9",
+            "node-id": "pathway-node/pt/cas/c3bbe269-3970-3a5c-84f6-ece6cfa0bac7",
+            "name": "TGFbeta1 ---Smad7, TAK1---> p38",
+            "value": "TGFbeta1 ---Smad7, TAK1---> p38",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/c2dda4aa-1e70-3573-a02c-12a11477b28d",
+            "name": "Alpha-protein kinase 1 signaling pathway",
+            "value": "Alpha-protein kinase 1 signaling pathway",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/3128cdfd-28ae-35d8-9347-2f439a8234fa",
+            "node-id": "pathway-node/pt/reactome/c2dda4aa-1e70-3573-a02c-12a11477b28d",
+            "name": "Alpha-protein kinase 1 signaling pathway",
+            "value": "Alpha-protein kinase 1 signaling pathway",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/733432f4-c3d3-3bf4-9dee-2671b1826e56",
+            "name": "Regulated proteolysis of p75NTR",
+            "value": "Regulated proteolysis of p75NTR",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/8d8d7392-d3f0-3cc9-b634-07e1799a316c",
+            "node-id": "pathway-node/pt/reactome/733432f4-c3d3-3bf4-9dee-2671b1826e56",
+            "name": "Regulated proteolysis of p75NTR",
+            "value": "Regulated proteolysis of p75NTR",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/8fb1e174-4430-306f-ad92-e0c46004c302",
+            "name": "Deubiquitination",
+            "value": "Deubiquitination",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/c7ead14f-4509-313c-80dc-58e1ee1f5f4e",
+            "node-id": "pathway-node/pt/reactome/8fb1e174-4430-306f-ad92-e0c46004c302",
+            "name": "Deubiquitination",
+            "value": "Deubiquitination",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/6f4c0148-1b0f-3220-94cf-35e8ef836fe4",
+            "name": "NRIF signals cell death from the nucleus",
+            "value": "NRIF signals cell death from the nucleus",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/d58caf49-79de-3260-bfde-585ca1772f08",
+            "node-id": "pathway-node/pt/reactome/6f4c0148-1b0f-3220-94cf-35e8ef836fe4",
+            "name": "NRIF signals cell death from the nucleus",
+            "value": "NRIF signals cell death from the nucleus",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/cas/b359d960-962a-36bc-b2d6-94fe650e71ce",
+            "name": "NF-kappaB p50 activation pathway",
+            "value": "NF-kappaB p50 activation pathway",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/f0c406ff-ef51-3f12-9498-53a2437042d8",
+            "node-id": "pathway-node/pt/cas/b359d960-962a-36bc-b2d6-94fe650e71ce",
+            "name": "TCRalpha:TCRbeta ---> LCK ---> LAT complex ---> PLCgamma1 ---> PKCtheta ---> CBM complex ---> NF-kappaB",
+            "value": "TCRalpha:TCRbeta ---> LCK ---> LAT complex ---> PLCgamma1 ---> PKCtheta ---> CBM complex ---> NF-kappaB",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/c4b070b3-b349-3f79-bc97-2988a2c865ac",
+            "node-id": "pathway-node/pt/cas/b359d960-962a-36bc-b2d6-94fe650e71ce",
+            "name": "NGF ---p75NTR---> p50:RelA-p65",
+            "value": "NGF ---p75NTR---> p50:RelA-p65",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/d809a456-2eea-3570-a6a4-3a23563ee740",
+            "node-id": "pathway-node/pt/cas/b359d960-962a-36bc-b2d6-94fe650e71ce",
+            "name": "LPS ---> NF-kappaB",
+            "value": "LPS ---> NF-kappaB",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/3953ba93-93aa-3c2c-8307-5798bddbec1c",
+            "node-id": "pathway-node/pt/cas/b359d960-962a-36bc-b2d6-94fe650e71ce",
+            "name": "CD28 ---> Lck ---> PLCgamma1 ---> PKCtheta ---> CBM complex ---> NF-kappaB",
+            "value": "CD28 ---> Lck ---> PLCgamma1 ---> PKCtheta ---> CBM complex ---> NF-kappaB",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/f0043e31-59bb-3c04-8433-e2d2ed666362",
+            "node-id": "pathway-node/pt/cas/b359d960-962a-36bc-b2d6-94fe650e71ce",
+            "name": "LPS ---> TLR4  ---> TRAM ---> RIP  ---> AIP1 ---> TRAF6 ---> NF-kappaB",
+            "value": "LPS ---> TLR4  ---> TRAM ---> RIP  ---> AIP1 ---> TRAF6 ---> NF-kappaB",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/131f7814-a389-35f5-a038-aae7cfe750e6",
+            "node-id": "pathway-node/pt/cas/b359d960-962a-36bc-b2d6-94fe650e71ce",
+            "name": "IL-1beta ---> p50:RelA",
+            "value": "IL-1beta ---> p50:RelA",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/85a9fb4a-e98e-3493-862a-0c1efff8fbed",
+            "node-id": "pathway-node/pt/cas/b359d960-962a-36bc-b2d6-94fe650e71ce",
+            "name": "dsRNA ---> p50:RelA",
+            "value": "dsRNA ---> p50:RelA",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/8a668ec1-f347-3594-9724-af61b518dfff",
+            "node-id": "pathway-node/pt/cas/b359d960-962a-36bc-b2d6-94fe650e71ce",
+            "name": "NF-kappaB p50 activation pathway",
+            "value": "NF-kappaB p50 activation pathway",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/0d0e8ee1-52ec-3e27-8e77-c6c1df2c59b6",
+            "node-id": "pathway-node/pt/cas/b359d960-962a-36bc-b2d6-94fe650e71ce",
+            "name": "mIgM ---> Lyn  ---> BLNK complex ---> PLCgamma2 ---> PKCbeta ---> CBM complex ---> NF-kappaB",
+            "value": "mIgM ---> Lyn  ---> BLNK complex ---> PLCgamma2 ---> PKCbeta ---> CBM complex ---> NF-kappaB",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/6ccb9cb1-5fa5-38be-be9c-32b778bff2be",
+            "name": "FCERI mediated NF-kB activation",
+            "value": "FCERI mediated NF-kB activation",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/12869fc0-b198-3415-9bb0-8cd4fddee105",
+            "node-id": "pathway-node/pt/reactome/6ccb9cb1-5fa5-38be-be9c-32b778bff2be",
+            "name": "FCERI mediated NF-kB activation",
+            "value": "FCERI mediated NF-kB activation",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/d85c0995-3bcb-39e2-91d8-4f634db741ed",
+            "name": "Fc epsilon receptor (FCERI) signaling",
+            "value": "Fc epsilon receptor (FCERI) signaling",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/9258f69e-070a-3f69-8a82-79e724b8810f",
+            "node-id": "pathway-node/pt/reactome/d85c0995-3bcb-39e2-91d8-4f634db741ed",
+            "name": "Fc epsilon receptor (FCERI) signaling",
+            "value": "Fc epsilon receptor (FCERI) signaling",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/f03e0a8c-76c5-3dff-9539-b06bbe6de8ba",
+            "name": "Signaling by Interleukins",
+            "value": "Signaling by Interleukins",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/d532a724-5071-3c4f-bd21-643b979c5256",
+            "node-id": "pathway-node/pt/reactome/f03e0a8c-76c5-3dff-9539-b06bbe6de8ba",
+            "name": "Signaling by Interleukins",
+            "value": "Signaling by Interleukins",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/cas/16ed7fd9-1d4b-393a-a5ce-87e501f0aaf2",
+            "name": "PD-L1 ubiquitination and; deubiquitination network",
+            "value": "PD-L1 ubiquitination and; deubiquitination network",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/a315dafb-e5a5-3d9c-895b-4a669bddb7da",
+            "node-id": "pathway-node/pt/cas/16ed7fd9-1d4b-393a-a5ce-87e501f0aaf2",
+            "name": "traf6--->PD-L1 ubiquitination",
+            "value": "traf6--->PD-L1 ubiquitination",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/3c941382-8bb4-3672-a0f3-e94ba52e13b9",
+            "node-id": "pathway-node/pt/cas/16ed7fd9-1d4b-393a-a5ce-87e501f0aaf2",
+            "name": "PD-L1 ubiquitination and; deubiquitination network",
+            "value": "PD-L1 ubiquitination and; deubiquitination network",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/d86e8705-d34f-3c36-9d94-7aa49a121ee2",
+            "name": "TRAF6 mediated IRF7 activation in TLR7/8 or 9 signaling",
+            "value": "TRAF6 mediated IRF7 activation in TLR7/8 or 9 signaling",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/1f26ca6a-ad18-36b6-b501-557ad9f23e44",
+            "node-id": "pathway-node/pt/reactome/d86e8705-d34f-3c36-9d94-7aa49a121ee2",
+            "name": "TRAF6 mediated IRF7 activation in TLR7/8 or 9 signaling",
+            "value": "TRAF6 mediated IRF7 activation in TLR7/8 or 9 signaling",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/ab52c3b5-49a2-3e5e-bfc7-226d83fd031f",
+            "name": "Cell death signalling via NRAGE, NRIF and NADE",
+            "value": "Cell death signalling via NRAGE, NRIF and NADE",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/17624c2a-e7a7-3e76-834f-1a337769ea71",
+            "node-id": "pathway-node/pt/reactome/ab52c3b5-49a2-3e5e-bfc7-226d83fd031f",
+            "name": "Cell death signalling via NRAGE, NRIF and NADE",
+            "value": "Cell death signalling via NRAGE, NRIF and NADE",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/ff6ec7ca-d2be-3cc2-83a3-d9cf6d9ad3fe",
+            "name": "MyD88 cascade initiated on plasma membrane",
+            "value": "MyD88 cascade initiated on plasma membrane",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/e8718c8f-94d5-379b-8e49-c2e640b4ae27",
+            "node-id": "pathway-node/pt/reactome/ff6ec7ca-d2be-3cc2-83a3-d9cf6d9ad3fe",
+            "name": "MyD88 cascade initiated on plasma membrane",
+            "value": "MyD88 cascade initiated on plasma membrane",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/a718c09d-2e75-3f0b-96ec-8e4dd45c60c2",
+            "name": "Adaptive Immune System",
+            "value": "Adaptive Immune System",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/d6dcdd5d-9a31-3743-ba39-3b35b8355bf2",
+            "node-id": "pathway-node/pt/reactome/a718c09d-2e75-3f0b-96ec-8e4dd45c60c2",
+            "name": "Adaptive Immune System",
+            "value": "Adaptive Immune System",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/cas/a1f1f9cf-0ee5-384c-923d-f9350b97d6f6",
+            "name": "TLR1/TLR2 pathway",
+            "value": "TLR1/TLR2 pathway",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/07a5a9c8-c36d-3cf2-8c82-42772571401c",
+            "node-id": "pathway-node/pt/cas/a1f1f9cf-0ee5-384c-923d-f9350b97d6f6",
+            "name": "triacyl lipopeptide ---> TLR1/TLR2 ---> IRAK-4 ---> IRAK1 ---> TRAF6",
+            "value": "triacyl lipopeptide ---> TLR1/TLR2 ---> IRAK-4 ---> IRAK1 ---> TRAF6",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/302eace0-7ead-393a-877e-f59bc3986f4d",
+            "node-id": "pathway-node/pt/cas/a1f1f9cf-0ee5-384c-923d-f9350b97d6f6",
+            "name": "IRAK1 ---> MKK4/MKK7 ---> JNK ---> c-Jun",
+            "value": "IRAK1 ---> MKK4/MKK7 ---> JNK ---> c-Jun",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/b7cbe8cd-5453-31c6-9961-26450e793034",
+            "node-id": "pathway-node/pt/cas/a1f1f9cf-0ee5-384c-923d-f9350b97d6f6",
+            "name": "IRAK1 ---> MKK3 ---> p38  ---> CREB",
+            "value": "IRAK1 ---> MKK3 ---> p38  ---> CREB",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/d501ad81-8ce4-3acc-8c80-643859c8b737",
+            "node-id": "pathway-node/pt/cas/a1f1f9cf-0ee5-384c-923d-f9350b97d6f6",
+            "name": "TLR1/TLR2 pathway",
+            "value": "TLR1/TLR2 pathway",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/81bbce9a-b643-388d-a04c-aba1e3695a9a",
+            "node-id": "pathway-node/pt/cas/a1f1f9cf-0ee5-384c-923d-f9350b97d6f6",
+            "name": "IRAK-1 ---> TRAF6 ---> p65 ---> cytokines production",
+            "value": "IRAK-1 ---> TRAF6 ---> p65 ---> cytokines production",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/cas/c04246d7-a751-317e-8f1d-3741084b4dc6",
+            "name": "EDAR pathway",
+            "value": "EDAR pathway",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/e3230bd4-e930-3c89-aa86-2619645a43ea",
+            "node-id": "pathway-node/pt/cas/c04246d7-a751-317e-8f1d-3741084b4dc6",
+            "name": "EDA-A2 ---> TRAF3, TRAF6",
+            "value": "EDA-A2 ---> TRAF3, TRAF6",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/73fb3ee1-82b0-3104-9883-6bb52c55a8d9",
+            "node-id": "pathway-node/pt/cas/c04246d7-a751-317e-8f1d-3741084b4dc6",
+            "name": "EDAR pathway",
+            "value": "EDAR pathway",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/2608251b-fbb0-352e-82a5-34edacb721ff",
+            "node-id": "pathway-node/pt/cas/c04246d7-a751-317e-8f1d-3741084b4dc6",
+            "name": "EDA-A2 ---> TRAF6",
+            "value": "EDA-A2 ---> TRAF6",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/c95c7fe7-1cd5-30a6-b88b-90a819dd678a",
+            "name": "TRIF(TICAM1)-mediated TLR4 signaling ",
+            "value": "TRIF(TICAM1)-mediated TLR4 signaling ",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/d4c8657a-2444-3a90-aea2-5eb144f7ae74",
+            "node-id": "pathway-node/pt/reactome/c95c7fe7-1cd5-30a6-b88b-90a819dd678a",
+            "name": "TRIF(TICAM1)-mediated TLR4 signaling",
+            "value": "TRIF(TICAM1)-mediated TLR4 signaling",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/fe2a1101-6dc9-3d95-b5ef-664d0e9fef62",
+            "name": "Innate Immune System",
+            "value": "Innate Immune System",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/3cfba93d-112d-3525-b787-6415278baba5",
+            "node-id": "pathway-node/pt/reactome/fe2a1101-6dc9-3d95-b5ef-664d0e9fef62",
+            "name": "Innate Immune System",
+            "value": "Innate Immune System",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/425208f6-cffe-3644-995d-9b0cfe445aa7",
+            "name": "CLEC7A (Dectin-1) signaling",
+            "value": "CLEC7A (Dectin-1) signaling",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/5ee47cb3-eb06-3113-8ff4-71d5b191317f",
+            "node-id": "pathway-node/pt/reactome/425208f6-cffe-3644-995d-9b0cfe445aa7",
+            "name": "CLEC7A (Dectin-1) signaling",
+            "value": "CLEC7A (Dectin-1) signaling",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/21cf70ab-6c72-3d83-aeab-c3c0aa93c568",
+            "name": "p75NTR signals via NF-kB",
+            "value": "p75NTR signals via NF-kB",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/20bb819b-bc6d-3643-a31c-d534cbcf6dff",
+            "node-id": "pathway-node/pt/reactome/21cf70ab-6c72-3d83-aeab-c3c0aa93c568",
+            "name": "p75NTR signals via NF-kB",
+            "value": "p75NTR signals via NF-kB",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/8db49bf0-6273-3afc-9bc3-ad93fb04caef",
+            "name": "MyD88 dependent cascade initiated on endosome",
+            "value": "MyD88 dependent cascade initiated on endosome",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/80f9d00c-3c23-317c-a18b-d55d38c9e816",
+            "node-id": "pathway-node/pt/reactome/8db49bf0-6273-3afc-9bc3-ad93fb04caef",
+            "name": "MyD88 dependent cascade initiated on endosome",
+            "value": "MyD88 dependent cascade initiated on endosome",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/6b740ade-4a24-3217-beec-44bc77904dbf",
+            "name": "TCR signaling",
+            "value": "TCR signaling",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/6befca4f-1d23-3b23-8c62-461e84453159",
+            "node-id": "pathway-node/pt/reactome/6b740ade-4a24-3217-beec-44bc77904dbf",
+            "name": "TCR signaling",
+            "value": "TCR signaling",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/cf7153b0-aee5-3d73-810e-6fbee726405e",
+            "node-id": "pathway-node/pt/reactome/6b740ade-4a24-3217-beec-44bc77904dbf",
+            "name": "TAK1 ---> MKK7 ---> JNK2 ---> c-Jun",
+            "value": "TAK1 ---> MKK7 ---> JNK2 ---> c-Jun",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/cas/ff6594bf-950b-3d59-8de0-ab6e95567532",
+            "name": "ATF-2 activation network",
+            "value": "ATF-2 activation network",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/11ea1efe-48b3-3fac-b5f2-3e3ba5804cf2",
+            "node-id": "pathway-node/pt/cas/ff6594bf-950b-3d59-8de0-ab6e95567532",
+            "name": "LPS ---> p38, JNK  ---> ATF-2",
+            "value": "LPS ---> p38, JNK  ---> ATF-2",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/5c6c1e21-29e7-3383-90b8-d85a5c42c0f7",
+            "node-id": "pathway-node/pt/cas/ff6594bf-950b-3d59-8de0-ab6e95567532",
+            "name": "ATF-2 activation network",
+            "value": "ATF-2 activation network",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/91fe67ee-fde3-3ff5-8489-368b676e657e",
+            "node-id": "pathway-node/pt/cas/ff6594bf-950b-3d59-8de0-ab6e95567532",
+            "name": "IL-1beta ---> ATF-2",
+            "value": "IL-1beta ---> ATF-2",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/f295a673-d617-34e1-95e3-4ad9ffde3328",
+            "name": "MyD88-independent TLR4 cascade ",
+            "value": "MyD88-independent TLR4 cascade ",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/6075dc34-2dc6-3be8-a25c-c177abe11f15",
+            "node-id": "pathway-node/pt/reactome/f295a673-d617-34e1-95e3-4ad9ffde3328",
+            "name": "MyD88-independent TLR4 cascade",
+            "value": "MyD88-independent TLR4 cascade",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/222e3c57-185e-3514-8630-f8e41d9edf86",
+            "name": "Toll-like Receptor Cascades",
+            "value": "Toll-like Receptor Cascades",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/d455a5e7-578e-3091-a9e0-b819192e0d2b",
+            "node-id": "pathway-node/pt/reactome/222e3c57-185e-3514-8630-f8e41d9edf86",
+            "name": "Toll-like Receptor Cascades",
+            "value": "Toll-like Receptor Cascades",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/f7efcfba-be9d-3b9d-9b2b-0e4293930591",
+            "name": "IRAK2 mediated activation of TAK1 complex",
+            "value": "IRAK2 mediated activation of TAK1 complex",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/da89a5de-60fe-3620-b2ed-dce001af4de0",
+            "node-id": "pathway-node/pt/reactome/f7efcfba-be9d-3b9d-9b2b-0e4293930591",
+            "name": "IRAK2 mediated activation of TAK1 complex",
+            "value": "IRAK2 mediated activation of TAK1 complex",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/37247cc2-be36-3947-b21e-e00a1493d93a",
+            "name": "Toll Like Receptor TLR1:TLR2 Cascade",
+            "value": "Toll Like Receptor TLR1:TLR2 Cascade",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/b3e38b9d-acf5-3514-abff-e54514eb40c7",
+            "node-id": "pathway-node/pt/reactome/37247cc2-be36-3947-b21e-e00a1493d93a",
+            "name": "Toll Like Receptor TLR1:TLR2 Cascade",
+            "value": "Toll Like Receptor TLR1:TLR2 Cascade",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/cas/2bc1d04c-b625-3e97-a33e-7f1a9a13ecd4",
+            "name": "PD-L1 activation pathway",
+            "value": "PD-L1 activation pathway",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/3b4d9e20-6fdb-3826-9f13-64cdf2c5577d",
+            "node-id": "pathway-node/pt/cas/2bc1d04c-b625-3e97-a33e-7f1a9a13ecd4",
+            "name": "PD-L1 activation pathway",
+            "value": "PD-L1 activation pathway",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/82381410-a315-3989-bdf7-5a3f956bd5a6",
+            "node-id": "pathway-node/pt/cas/2bc1d04c-b625-3e97-a33e-7f1a9a13ecd4",
+            "name": "LPS--->TLR4/MyD88--->NF-kB--->PD-L1",
+            "value": "LPS--->TLR4/MyD88--->NF-kB--->PD-L1",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/1a6a8aef-e08f-37fe-8fe9-428f20d91564",
+            "node-id": "pathway-node/pt/cas/2bc1d04c-b625-3e97-a33e-7f1a9a13ecd4",
+            "name": "TLR2/6--->MYD88--->JNK1--->NFATc1--->PD-L1",
+            "value": "TLR2/6--->MYD88--->JNK1--->NFATc1--->PD-L1",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/9977b4e1-0abc-38be-83b0-400f07c6b73a",
+            "name": "TRAF6 mediated induction of NFkB and MAP kinases upon TLR7/8 or 9 activation",
+            "value": "TRAF6 mediated induction of NFkB and MAP kinases upon TLR7/8 or 9 activation",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/72549b9a-d579-3e4c-8753-cadd4d8cf961",
+            "node-id": "pathway-node/pt/reactome/9977b4e1-0abc-38be-83b0-400f07c6b73a",
+            "name": "TRAF6 mediated induction of NFkB and MAP kinases upon TLR7/8 or 9 activation",
+            "value": "TRAF6 mediated induction of NFkB and MAP kinases upon TLR7/8 or 9 activation",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/cas/fea410d7-5373-3cce-877b-c32c97f7d3d8",
+            "name": "TLR2-mediated signaling",
+            "value": "TLR2-mediated signaling",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/6cca359d-1d20-33d7-9622-6121c853f04d",
+            "node-id": "pathway-node/pt/cas/fea410d7-5373-3cce-877b-c32c97f7d3d8",
+            "name": "TLR2-mediated signaling",
+            "value": "TLR2-mediated signaling",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/223014d4-dd7c-336c-9cfc-f516d75c211d",
+            "node-id": "pathway-node/pt/cas/fea410d7-5373-3cce-877b-c32c97f7d3d8",
+            "name": "diacyl lipopeptide, TLR2",
+            "value": "diacyl lipopeptide, TLR2",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/20f84c36-c262-3f9b-8bdf-d7f37b8a9ec0",
+            "name": "Interleukin-1 signaling",
+            "value": "Interleukin-1 signaling",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/58b62c3f-b46f-3651-8277-9aaeb965c22f",
+            "node-id": "pathway-node/pt/reactome/20f84c36-c262-3f9b-8bdf-d7f37b8a9ec0",
+            "name": "Interleukin-1 signaling",
+            "value": "Interleukin-1 signaling",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/4ce917c0-0cce-31fc-b6ba-66f030f62560",
+            "name": "TICAM1,TRAF6-dependent induction of TAK1 complex",
+            "value": "TICAM1,TRAF6-dependent induction of TAK1 complex",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/a4877b44-e20a-3bbd-a71d-0140fe06acfc",
+            "node-id": "pathway-node/pt/reactome/4ce917c0-0cce-31fc-b6ba-66f030f62560",
+            "name": "TICAM1,TRAF6-dependent induction of TAK1 complex",
+            "value": "TICAM1,TRAF6-dependent induction of TAK1 complex",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/b46553d7-e0b1-394f-a224-06bac4b1b0ff",
+            "name": "Toll Like Receptor 4 (TLR4) Cascade",
+            "value": "Toll Like Receptor 4 (TLR4) Cascade",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/f9b89621-e267-3934-8d8d-53859bdc3d69",
+            "node-id": "pathway-node/pt/reactome/b46553d7-e0b1-394f-a224-06bac4b1b0ff",
+            "name": "Toll Like Receptor 4 (TLR4) Cascade",
+            "value": "Toll Like Receptor 4 (TLR4) Cascade",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/765919b2-8b87-39ae-bd11-b3910a056a7b",
+            "name": "Signaling by the B Cell Receptor (BCR)",
+            "value": "Signaling by the B Cell Receptor (BCR)",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/b6236d6b-09d3-33c5-a59e-c3a5330b9e8b",
+            "node-id": "pathway-node/pt/reactome/765919b2-8b87-39ae-bd11-b3910a056a7b",
+            "name": "Signaling by the B Cell Receptor (BCR)",
+            "value": "Signaling by the B Cell Receptor (BCR)",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/0d0e8ee1-52ec-3e27-8e77-c6c1df2c59b6",
+            "node-id": "pathway-node/pt/reactome/765919b2-8b87-39ae-bd11-b3910a056a7b",
+            "name": "mIgM ---> Lyn  ---> BLNK complex ---> PLCgamma2 ---> PKCbeta ---> CBM complex ---> NF-kappaB",
+            "value": "mIgM ---> Lyn  ---> BLNK complex ---> PLCgamma2 ---> PKCbeta ---> CBM complex ---> NF-kappaB",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/3bb9e393-faf6-32f5-a8ad-d0ff51666d44",
+            "name": "p75NTR recruits signalling complexes",
+            "value": "p75NTR recruits signalling complexes",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/a219d085-d2e1-3e4b-a062-04f77f549889",
+            "node-id": "pathway-node/pt/reactome/3bb9e393-faf6-32f5-a8ad-d0ff51666d44",
+            "name": "p75NTR recruits signalling complexes",
+            "value": "p75NTR recruits signalling complexes",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/cas/51b5c0e4-b40b-3770-8136-fe0ebe5687a0",
+            "name": "TLR4 pathway",
+            "value": "TLR4 pathway",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/0acdad47-ced7-36cf-bd1f-a3fd86821f27",
+            "node-id": "pathway-node/pt/cas/51b5c0e4-b40b-3770-8136-fe0ebe5687a0",
+            "name": "LPS ---> JNK",
+            "value": "LPS ---> JNK",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/82381410-a315-3989-bdf7-5a3f956bd5a6",
+            "node-id": "pathway-node/pt/cas/51b5c0e4-b40b-3770-8136-fe0ebe5687a0",
+            "name": "LPS--->TLR4/MyD88--->NF-kB--->PD-L1",
+            "value": "LPS--->TLR4/MyD88--->NF-kB--->PD-L1",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/d809a456-2eea-3570-a6a4-3a23563ee740",
+            "node-id": "pathway-node/pt/cas/51b5c0e4-b40b-3770-8136-fe0ebe5687a0",
+            "name": "LPS ---> NF-kappaB",
+            "value": "LPS ---> NF-kappaB",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/11ea1efe-48b3-3fac-b5f2-3e3ba5804cf2",
+            "node-id": "pathway-node/pt/cas/51b5c0e4-b40b-3770-8136-fe0ebe5687a0",
+            "name": "LPS ---> p38, JNK  ---> ATF-2",
+            "value": "LPS ---> p38, JNK  ---> ATF-2",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/603afb97-56b0-3328-97e9-e4d95cc9587b",
+            "node-id": "pathway-node/pt/cas/51b5c0e4-b40b-3770-8136-fe0ebe5687a0",
+            "name": "LPS ---> p38, JNK",
+            "value": "LPS ---> p38, JNK",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/f0043e31-59bb-3c04-8433-e2d2ed666362",
+            "node-id": "pathway-node/pt/cas/51b5c0e4-b40b-3770-8136-fe0ebe5687a0",
+            "name": "LPS ---> TLR4  ---> TRAM ---> RIP  ---> AIP1 ---> TRAF6 ---> NF-kappaB",
+            "value": "LPS ---> TLR4  ---> TRAM ---> RIP  ---> AIP1 ---> TRAF6 ---> NF-kappaB",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/11c6d25e-b616-3fb9-8b8d-693bc1560fc9",
+            "node-id": "pathway-node/pt/cas/51b5c0e4-b40b-3770-8136-fe0ebe5687a0",
+            "name": "TLR4 pathway",
+            "value": "TLR4 pathway",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/eb165e1a-ee66-3d4b-8ead-da13f283e139",
+            "name": "NOD1/2 Signaling Pathway",
+            "value": "NOD1/2 Signaling Pathway",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/9dcc4b80-e17d-36ef-b73b-f616677279a3",
+            "node-id": "pathway-node/pt/reactome/eb165e1a-ee66-3d4b-8ead-da13f283e139",
+            "name": "NOD1/2 Signaling Pathway",
+            "value": "NOD1/2 Signaling Pathway",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/3a71952a-d0b3-3cfd-b89a-3d0c0d2bc81c",
+            "name": "Toll Like Receptor TLR6:TLR2 Cascade",
+            "value": "Toll Like Receptor TLR6:TLR2 Cascade",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/2e225246-7c5f-3e75-8b60-a62a9aab851d",
+            "node-id": "pathway-node/pt/reactome/3a71952a-d0b3-3cfd-b89a-3d0c0d2bc81c",
+            "name": "Toll Like Receptor TLR6:TLR2 Cascade",
+            "value": "Toll Like Receptor TLR6:TLR2 Cascade",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/1a6a8aef-e08f-37fe-8fe9-428f20d91564",
+            "node-id": "pathway-node/pt/reactome/3a71952a-d0b3-3cfd-b89a-3d0c0d2bc81c",
+            "name": "TLR2/6--->MYD88--->JNK1--->NFATc1--->PD-L1",
+            "value": "TLR2/6--->MYD88--->JNK1--->NFATc1--->PD-L1",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/6e4abf5b-978f-37c7-bbb8-af6f54b27d8c",
+            "name": "Post-translational protein modification",
+            "value": "Post-translational protein modification",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/c2eabce1-8e1c-3158-b00b-eefa0d07974f",
+            "node-id": "pathway-node/pt/reactome/6e4abf5b-978f-37c7-bbb8-af6f54b27d8c",
+            "name": "Post-translational protein modification",
+            "value": "Post-translational protein modification",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/fdf0607f-698d-37fa-9572-679fd58e46cf",
+            "name": "Nucleotide-binding domain, leucine rich repeat containing receptor (NLR) signaling pathways",
+            "value": "Nucleotide-binding domain, leucine rich repeat containing receptor (NLR) signaling pathways",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/c9c5febe-3910-3cae-b5db-16db88bc2de2",
+            "node-id": "pathway-node/pt/reactome/fdf0607f-698d-37fa-9572-679fd58e46cf",
+            "name": "Nucleotide-binding domain, leucine rich repeat containing receptor (NLR) signaling pathways",
+            "value": "Nucleotide-binding domain, leucine rich repeat containing receptor (NLR) signaling pathways",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/37f791a2-3611-3698-a08e-8114225f5675",
+            "name": "Death Receptor Signaling",
+            "value": "Death Receptor Signaling",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/95aad787-b1b7-3ced-8a7a-98a8be70437c",
+            "node-id": "pathway-node/pt/reactome/37f791a2-3611-3698-a08e-8114225f5675",
+            "name": "Death Receptor Signaling",
+            "value": "Death Receptor Signaling",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/cas/0c4f3b46-dd28-36fd-8603-c17c4d41742c",
+            "name": "RANKL pathway",
+            "value": "RANKL pathway",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/f0ad4b9f-a5ee-3c12-b115-860851ad86f5",
+            "node-id": "pathway-node/pt/cas/0c4f3b46-dd28-36fd-8603-c17c4d41742c",
+            "name": "RANKL ---> MITF",
+            "value": "RANKL ---> MITF",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/79ce6686-fd22-3b6d-aa39-52df49c50cf6",
+            "node-id": "pathway-node/pt/cas/0c4f3b46-dd28-36fd-8603-c17c4d41742c",
+            "name": "RANKL pathway",
+            "value": "RANKL pathway",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway/75d4fd69-437d-375d-b790-297fe9253e37",
+            "node-id": "pathway-node/pt/cas/0c4f3b46-dd28-36fd-8603-c17c4d41742c",
+            "name": "RANKL ---> AKT",
+            "value": "RANKL ---> AKT",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/82a895f2-d446-3681-969c-945ab385dd2f",
+            "name": "Ovarian tumor domain proteases",
+            "value": "Ovarian tumor domain proteases",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/4c0be35e-f1d8-3f8d-b88e-c319c4f91287",
+            "node-id": "pathway-node/pt/reactome/82a895f2-d446-3681-969c-945ab385dd2f",
+            "name": "Ovarian tumor domain proteases",
+            "value": "Ovarian tumor domain proteases",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/489dddbd-17c8-3449-903a-adb89e07f032",
+            "name": "TRAF6-mediated induction of TAK1 complex within TLR4 complex",
+            "value": "TRAF6-mediated induction of TAK1 complex within TLR4 complex",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/6ca4155e-5789-3bc6-bd01-8096446f9fde",
+            "node-id": "pathway-node/pt/reactome/489dddbd-17c8-3449-903a-adb89e07f032",
+            "name": "TRAF6-mediated induction of TAK1 complex within TLR4 complex",
+            "value": "TRAF6-mediated induction of TAK1 complex within TLR4 complex",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/661873f0-4251-3d28-971d-7a399a31e467",
+            "name": "Toll Like Receptor 5 (TLR5) Cascade",
+            "value": "Toll Like Receptor 5 (TLR5) Cascade",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/5fda0db8-5a49-30d9-a8d4-e8dc41ab9cee",
+            "node-id": "pathway-node/pt/reactome/661873f0-4251-3d28-971d-7a399a31e467",
+            "name": "Toll Like Receptor 5 (TLR5) Cascade",
+            "value": "Toll Like Receptor 5 (TLR5) Cascade",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/7ca4785c-6094-3815-9ed4-f4033b643994",
+            "name": "MyD88:MAL(TIRAP) cascade initiated on plasma membrane",
+            "value": "MyD88:MAL(TIRAP) cascade initiated on plasma membrane",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/8d6508a4-51ef-3a8b-90fe-6141b0ecaa00",
+            "node-id": "pathway-node/pt/reactome/7ca4785c-6094-3815-9ed4-f4033b643994",
+            "name": "MyD88:MAL(TIRAP) cascade initiated on plasma membrane",
+            "value": "MyD88:MAL(TIRAP) cascade initiated on plasma membrane",
+            "symbolSize": 10,
+            "category": "step"
+        },
+        {
+            "id": "pathway-node/pt/reactome/18cea731-32a7-3156-8df9-5ad3a8b7ac7a",
+            "name": "Toll Like Receptor 9 (TLR9) Cascade",
+            "value": "Toll Like Receptor 9 (TLR9) Cascade",
+            "symbolSize": 10,
+            "category": "node"
+        },
+        {
+            "id": "pathway/cec5e781-c1ab-3478-8a62-b74ea472eb08",
+            "node-id": "pathway-node/pt/reactome/18cea731-32a7-3156-8df9-5ad3a8b7ac7a",
+            "name": "Toll Like Receptor 9 (TLR9) Cascade",
+            "value": "Toll Like Receptor 9 (TLR9) Cascade",
+            "symbolSize": 10,
+            "category": "step"
+        }
+    ],
+    "links": [
+        {
+            "target": "pathway/24d3e65d-3dd0-3eef-826f-3fd4597d111f",
+            "source": "pathway-node/pt/reactome/0480d0ea-7666-3a79-a017-2b67f83c729a"
+        },
+        {
+            "target": "pathway/82775587-ffe1-3da8-8174-ca29f83b5d0b",
+            "source": "pathway-node/pt/reactome/c408143c-a75b-3575-90df-08ab3e758482"
+        },
+        {
+            "target": "pathway/83a5325d-5a78-396b-8e41-929cc005f08d",
+            "source": "pathway-node/pt/cas/6dc154af-5fff-3428-9e90-ebd8770f4fc6"
+        },
+        {
+            "target": "pathway/5104717c-49da-3a03-903c-bc98a7e59a31",
+            "source": "pathway-node/pt/reactome/8f515e99-3138-39bd-8644-e6c309962c8c"
+        },
+        {
+            "target": "pathway/2889b3a5-f400-3296-a7af-06440088dcc3",
+            "source": "pathway-node/pt/reactome/b09664b5-fb9b-3e04-910f-80040db15ce6"
+        },
+        {
+            "target": "pathway/8ba1dd51-69a7-31f2-a70d-b4dadf3703a5",
+            "source": "pathway-node/pt/reactome/d932564a-20ff-30d7-bc88-8c9331e46b49"
+        },
+        {
+            "target": "pathway/8eb415f8-ca6c-33db-974b-97b061b6964c",
+            "source": "pathway-node/pt/cas/edb5125f-9288-3062-a045-5f30f7607baf"
+        },
+        {
+            "target": "pathway/84060113-c8ae-3107-81db-c0f25c687d28",
+            "source": "pathway-node/pt/reactome/347202ec-b8c4-307f-ba0e-40bc6509b1f4"
+        },
+        {
+            "target": "pathway/85f91626-acb9-3226-acd3-6353a35e7eae",
+            "source": "pathway-node/pt/cas/dc7a42fb-5caf-34e0-be1a-fd86126dcd4e"
+        },
+        {
+            "target": "pathway/e313bcfa-d90f-3fe0-972d-eb3135ca102f",
+            "source": "pathway-node/pt/reactome/ccbf4a5a-d6a2-3ac7-91d4-d252f19b5c54"
+        },
+        {
+            "target": "pathway/c6b9266a-1f93-3432-bddf-b0f5539dec31",
+            "source": "pathway-node/pt/reactome/6366967c-9665-35f7-a133-2117c2b755cc"
+        },
+        {
+            "target": "pathway/09cedb3d-d581-3517-913e-7e3135762f1f",
+            "source": "pathway-node/pt/reactome/7702a4a8-51ec-370a-977b-41e099c9de7f"
+        },
+        {
+            "target": "pathway/bc922a26-e9af-36ee-9725-593f24ea0727",
+            "source": "pathway-node/pt/cas/19f7c437-8a08-35ef-baf3-07d64e45072c"
+        },
+        {
+            "target": "pathway/cd4dce44-3df9-37be-a58e-b48606ccfeac",
+            "source": "pathway-node/pt/reactome/320e6523-8113-36a5-9276-0a7850795c71"
+        },
+        {
+            "target": "pathway/0f73f12f-66ae-34c2-be5f-a3c4c5df6430",
+            "source": "pathway-node/pt/cas/c3bbe269-3970-3a5c-84f6-ece6cfa0bac7"
+        },
+        {
+            "target": "pathway/3128cdfd-28ae-35d8-9347-2f439a8234fa",
+            "source": "pathway-node/pt/reactome/c2dda4aa-1e70-3573-a02c-12a11477b28d"
+        },
+        {
+            "target": "pathway/8d8d7392-d3f0-3cc9-b634-07e1799a316c",
+            "source": "pathway-node/pt/reactome/733432f4-c3d3-3bf4-9dee-2671b1826e56"
+        },
+        {
+            "target": "pathway/c7ead14f-4509-313c-80dc-58e1ee1f5f4e",
+            "source": "pathway-node/pt/reactome/8fb1e174-4430-306f-ad92-e0c46004c302"
+        },
+        {
+            "target": "pathway/d58caf49-79de-3260-bfde-585ca1772f08",
+            "source": "pathway-node/pt/reactome/6f4c0148-1b0f-3220-94cf-35e8ef836fe4"
+        },
+        {
+            "target": "pathway/8a668ec1-f347-3594-9724-af61b518dfff",
+            "source": "pathway-node/pt/cas/b359d960-962a-36bc-b2d6-94fe650e71ce"
+        },
+        {
+            "target": "pathway/12869fc0-b198-3415-9bb0-8cd4fddee105",
+            "source": "pathway-node/pt/reactome/6ccb9cb1-5fa5-38be-be9c-32b778bff2be"
+        },
+        {
+            "target": "pathway/9258f69e-070a-3f69-8a82-79e724b8810f",
+            "source": "pathway-node/pt/reactome/d85c0995-3bcb-39e2-91d8-4f634db741ed"
+        },
+        {
+            "target": "pathway/d532a724-5071-3c4f-bd21-643b979c5256",
+            "source": "pathway-node/pt/reactome/f03e0a8c-76c5-3dff-9539-b06bbe6de8ba"
+        },
+        {
+            "target": "pathway/3c941382-8bb4-3672-a0f3-e94ba52e13b9",
+            "source": "pathway-node/pt/cas/16ed7fd9-1d4b-393a-a5ce-87e501f0aaf2"
+        },
+        {
+            "target": "pathway/1f26ca6a-ad18-36b6-b501-557ad9f23e44",
+            "source": "pathway-node/pt/reactome/d86e8705-d34f-3c36-9d94-7aa49a121ee2"
+        },
+        {
+            "target": "pathway/17624c2a-e7a7-3e76-834f-1a337769ea71",
+            "source": "pathway-node/pt/reactome/ab52c3b5-49a2-3e5e-bfc7-226d83fd031f"
+        },
+        {
+            "target": "pathway/e8718c8f-94d5-379b-8e49-c2e640b4ae27",
+            "source": "pathway-node/pt/reactome/ff6ec7ca-d2be-3cc2-83a3-d9cf6d9ad3fe"
+        },
+        {
+            "target": "pathway/d6dcdd5d-9a31-3743-ba39-3b35b8355bf2",
+            "source": "pathway-node/pt/reactome/a718c09d-2e75-3f0b-96ec-8e4dd45c60c2"
+        },
+        {
+            "target": "pathway/d501ad81-8ce4-3acc-8c80-643859c8b737",
+            "source": "pathway-node/pt/cas/a1f1f9cf-0ee5-384c-923d-f9350b97d6f6"
+        },
+        {
+            "target": "pathway/73fb3ee1-82b0-3104-9883-6bb52c55a8d9",
+            "source": "pathway-node/pt/cas/c04246d7-a751-317e-8f1d-3741084b4dc6"
+        },
+        {
+            "target": "pathway/d4c8657a-2444-3a90-aea2-5eb144f7ae74",
+            "source": "pathway-node/pt/reactome/c95c7fe7-1cd5-30a6-b88b-90a819dd678a"
+        },
+        {
+            "target": "pathway/3cfba93d-112d-3525-b787-6415278baba5",
+            "source": "pathway-node/pt/reactome/fe2a1101-6dc9-3d95-b5ef-664d0e9fef62"
+        },
+        {
+            "target": "pathway/5ee47cb3-eb06-3113-8ff4-71d5b191317f",
+            "source": "pathway-node/pt/reactome/425208f6-cffe-3644-995d-9b0cfe445aa7"
+        },
+        {
+            "target": "pathway/20bb819b-bc6d-3643-a31c-d534cbcf6dff",
+            "source": "pathway-node/pt/reactome/21cf70ab-6c72-3d83-aeab-c3c0aa93c568"
+        },
+        {
+            "target": "pathway/80f9d00c-3c23-317c-a18b-d55d38c9e816",
+            "source": "pathway-node/pt/reactome/8db49bf0-6273-3afc-9bc3-ad93fb04caef"
+        },
+        {
+            "target": "pathway/6befca4f-1d23-3b23-8c62-461e84453159",
+            "source": "pathway-node/pt/reactome/6b740ade-4a24-3217-beec-44bc77904dbf"
+        },
+        {
+            "target": "pathway/5c6c1e21-29e7-3383-90b8-d85a5c42c0f7",
+            "source": "pathway-node/pt/cas/ff6594bf-950b-3d59-8de0-ab6e95567532"
+        },
+        {
+            "target": "pathway/6075dc34-2dc6-3be8-a25c-c177abe11f15",
+            "source": "pathway-node/pt/reactome/f295a673-d617-34e1-95e3-4ad9ffde3328"
+        },
+        {
+            "target": "pathway/d455a5e7-578e-3091-a9e0-b819192e0d2b",
+            "source": "pathway-node/pt/reactome/222e3c57-185e-3514-8630-f8e41d9edf86"
+        },
+        {
+            "target": "pathway/da89a5de-60fe-3620-b2ed-dce001af4de0",
+            "source": "pathway-node/pt/reactome/f7efcfba-be9d-3b9d-9b2b-0e4293930591"
+        },
+        {
+            "target": "pathway/b3e38b9d-acf5-3514-abff-e54514eb40c7",
+            "source": "pathway-node/pt/reactome/37247cc2-be36-3947-b21e-e00a1493d93a"
+        },
+        {
+            "target": "pathway/3b4d9e20-6fdb-3826-9f13-64cdf2c5577d",
+            "source": "pathway-node/pt/cas/2bc1d04c-b625-3e97-a33e-7f1a9a13ecd4"
+        },
+        {
+            "target": "pathway/72549b9a-d579-3e4c-8753-cadd4d8cf961",
+            "source": "pathway-node/pt/reactome/9977b4e1-0abc-38be-83b0-400f07c6b73a"
+        },
+        {
+            "target": "pathway/6cca359d-1d20-33d7-9622-6121c853f04d",
+            "source": "pathway-node/pt/cas/fea410d7-5373-3cce-877b-c32c97f7d3d8"
+        },
+        {
+            "target": "pathway/58b62c3f-b46f-3651-8277-9aaeb965c22f",
+            "source": "pathway-node/pt/reactome/20f84c36-c262-3f9b-8bdf-d7f37b8a9ec0"
+        },
+        {
+            "target": "pathway/a4877b44-e20a-3bbd-a71d-0140fe06acfc",
+            "source": "pathway-node/pt/reactome/4ce917c0-0cce-31fc-b6ba-66f030f62560"
+        },
+        {
+            "target": "pathway/f9b89621-e267-3934-8d8d-53859bdc3d69",
+            "source": "pathway-node/pt/reactome/b46553d7-e0b1-394f-a224-06bac4b1b0ff"
+        },
+        {
+            "target": "pathway/b6236d6b-09d3-33c5-a59e-c3a5330b9e8b",
+            "source": "pathway-node/pt/reactome/765919b2-8b87-39ae-bd11-b3910a056a7b"
+        },
+        {
+            "target": "pathway/a219d085-d2e1-3e4b-a062-04f77f549889",
+            "source": "pathway-node/pt/reactome/3bb9e393-faf6-32f5-a8ad-d0ff51666d44"
+        },
+        {
+            "target": "pathway/11c6d25e-b616-3fb9-8b8d-693bc1560fc9",
+            "source": "pathway-node/pt/cas/51b5c0e4-b40b-3770-8136-fe0ebe5687a0"
+        },
+        {
+            "target": "pathway/9dcc4b80-e17d-36ef-b73b-f616677279a3",
+            "source": "pathway-node/pt/reactome/eb165e1a-ee66-3d4b-8ead-da13f283e139"
+        },
+        {
+            "target": "pathway/2e225246-7c5f-3e75-8b60-a62a9aab851d",
+            "source": "pathway-node/pt/reactome/3a71952a-d0b3-3cfd-b89a-3d0c0d2bc81c"
+        },
+        {
+            "target": "pathway/c2eabce1-8e1c-3158-b00b-eefa0d07974f",
+            "source": "pathway-node/pt/reactome/6e4abf5b-978f-37c7-bbb8-af6f54b27d8c"
+        },
+        {
+            "target": "pathway/c9c5febe-3910-3cae-b5db-16db88bc2de2",
+            "source": "pathway-node/pt/reactome/fdf0607f-698d-37fa-9572-679fd58e46cf"
+        },
+        {
+            "target": "pathway/95aad787-b1b7-3ced-8a7a-98a8be70437c",
+            "source": "pathway-node/pt/reactome/37f791a2-3611-3698-a08e-8114225f5675"
+        },
+        {
+            "target": "pathway/79ce6686-fd22-3b6d-aa39-52df49c50cf6",
+            "source": "pathway-node/pt/cas/0c4f3b46-dd28-36fd-8603-c17c4d41742c"
+        },
+        {
+            "target": "pathway/4c0be35e-f1d8-3f8d-b88e-c319c4f91287",
+            "source": "pathway-node/pt/reactome/82a895f2-d446-3681-969c-945ab385dd2f"
+        },
+        {
+            "target": "pathway/6ca4155e-5789-3bc6-bd01-8096446f9fde",
+            "source": "pathway-node/pt/reactome/489dddbd-17c8-3449-903a-adb89e07f032"
+        },
+        {
+            "target": "pathway/5fda0db8-5a49-30d9-a8d4-e8dc41ab9cee",
+            "source": "pathway-node/pt/reactome/661873f0-4251-3d28-971d-7a399a31e467"
+        },
+        {
+            "target": "pathway/8d6508a4-51ef-3a8b-90fe-6141b0ecaa00",
+            "source": "pathway-node/pt/reactome/7ca4785c-6094-3815-9ed4-f4033b643994"
+        },
+        {
+            "target": "pathway/cec5e781-c1ab-3478-8a62-b74ea472eb08",
+            "source": "pathway-node/pt/reactome/18cea731-32a7-3156-8df9-5ad3a8b7ac7a"
+        }
+    ],
+    "categories": [
+        {
+            "name": "step"
+        },
+        {
+            "name": "node"
+        }
+    ]
+}

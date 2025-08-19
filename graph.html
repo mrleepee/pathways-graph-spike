@@ -1,0 +1,398 @@
+<!--
+	THIS EXAMPLE WAS DOWNLOADED FROM https://echarts.apache.org/examples/en/editor.html?c=graph
+-->
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Crect width='16' height='16' fill='%234cc'%3E%3C/rect%3E%3C/svg%3E">
+  <script>
+    (function () {
+      var originalConsoleError = console.error && console.error.bind(console);
+      window.__errorLog = [];
+      function appendToOverlay(message) {
+        try {
+          var el = document.getElementById('error-log');
+          if (!el) return;
+          el.setAttribute('data-has-errors', 'true');
+          var item = document.createElement('div');
+          item.textContent = message;
+          el.appendChild(item);
+        } catch (_) {}
+      }
+      console.error = function () {
+        var msg = Array.prototype.map.call(arguments, function (a) {
+          if (a && a.stack) return a.stack;
+          try { return JSON.stringify(a); } catch (_) { return String(a); }
+        }).join(' ');
+        window.__errorLog.push(msg);
+        appendToOverlay(msg);
+        if (originalConsoleError) originalConsoleError.apply(console, arguments);
+      };
+      window.addEventListener('error', function (e) {
+        var msg = e && e.message ? e.message : String(e);
+        if (e && e.error && e.error.stack) msg = e.error.stack;
+        console.error('window.onerror:', msg);
+      });
+      window.addEventListener('unhandledrejection', function (e) {
+        var msg = (e && e.reason && (e.reason.stack || e.reason.message)) ? (e.reason.stack || e.reason.message) : String(e && e.reason);
+        console.error('unhandledrejection:', msg);
+      });
+    })();
+  </script>
+</head>
+<body style="height: 100%; margin: 0">
+  <div id="status" style="position:fixed;top:0;right:0;background:#eef;color:#222;padding:4px 6px;font:12px/1.2 monospace;z-index:99998">loading</div>
+  <div id="controls" style="position:fixed;top:0;left:0;background:#eef;color:#222;padding:4px 6px;font:12px/1.2 monospace;z-index:99998">
+    Data:
+    <a href="?data=echarts_graph.json">echarts_graph.json</a>
+    |
+    <a href="?data=pathways.json">pathways.json</a>
+  </div>
+  <div id="error-log" data-has-errors="false" style="position:fixed;bottom:0;left:0;right:0;max-height:30%;overflow:auto;background:rgba(0,0,0,0.8);color:#fdd;font:12px/1.4 monospace;padding:6px;z-index:99999"></div>
+  <div id="container" style="height: 100%"></div>
+
+  <script type="text/javascript" src="./echarts.min.js"></script>
+  
+  <!-- Uncomment this line if you want to dataTool extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/extension/dataTool.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use gl extension
+  <script type="text/javascript" src="https://echarts.apache.org/en/js/vendors/echarts-gl/dist/echarts-gl.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to echarts-stat extension
+  <script type="text/javascript" src="https://echarts.apache.org/en/js/vendors/echarts-stat/dist/ecStat.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to echarts-graph-modularity extension
+  <script type="text/javascript" src="https://echarts.apache.org/en/js/vendors/echarts-graph-modularity/dist/echarts-graph-modularity.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use map
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+  -->
+  <!-- Uncomment these two lines if you want to use bmap extension
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/extension/bmap.min.js"></script>
+  -->
+
+  <script type="text/javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, null, {
+      renderer: 'canvas',
+      useDirtyRect: false
+    });
+    var app = {};
+    var ROOT_PATH = 'https://echarts.apache.org/examples';
+    var params = new URLSearchParams(location.search);
+    var dataFile = params.get('data') || 'echarts_graph.json';
+    var view = (params.get('view') || 'graph').toLowerCase(); // 'graph' or 'tree'
+    var option;
+
+    // Add dynamic view links that preserve dataFile
+    (function () {
+      var c = document.getElementById('controls');
+      if (!c) return;
+      var links = ' | View: '
+        + '<a href="?data=' + encodeURIComponent(dataFile) + '&view=graph">graph</a>'
+        + ' | '
+        + '<a href="?data=' + encodeURIComponent(dataFile) + '&view=tree">tree</a>';
+      c.insertAdjacentHTML('beforeend', links);
+    })();
+
+    // --- Edge list -> ECharts converter (child -> parent edges to both graph + tree) ---
+    function edgesToEcharts(edges, labelsByUri) {
+      labelsByUri = labelsByUri || {};
+      // Dedup edges
+      var seen = new Set();
+      var clean = [];
+      for (var i = 0; i < edges.length; i++) {
+        var e = edges[i] || {};
+        var child = e.pathwayNodeUri, parent = e.parentNodeUri, level = e.level;
+        if (!child || !parent) continue;
+        var k = child + '|' + parent;
+        if (seen.has(k)) continue;
+        seen.add(k);
+        clean.push({ child: String(child), parent: String(parent), level: level });
+      }
+
+      // Build indices
+      var nodesSet = new Set();
+      var childrenByParent = new Map();
+      var parentsByChild = new Map();
+      var levelByNode = new Map(); // best-known level per node (from child record)
+      for (var j = 0; j < clean.length; j++) {
+        var c = clean[j];
+        nodesSet.add(c.child);
+        nodesSet.add(c.parent);
+        if (!childrenByParent.has(c.parent)) childrenByParent.set(c.parent, new Set());
+        childrenByParent.get(c.parent).add(c.child);
+        if (!parentsByChild.has(c.child)) parentsByChild.set(c.child, new Set());
+        parentsByChild.get(c.child).add(c.parent);
+        if (c.level != null && !levelByNode.has(c.child)) levelByNode.set(c.child, c.level);
+      }
+
+      function label(uri) { return labelsByUri[uri] || uri; }
+
+      // Roots: nodes that appear as a parent but never as a child
+      var roots = [];
+      childrenByParent.forEach(function (_kids, p) {
+        if (!parentsByChild.has(p)) roots.push(p);
+      });
+      // If somehow no roots are detected (e.g., a chain where top also appears as child),
+      // fall back to any node without outgoing edges.
+      if (!roots.length) {
+        nodesSet.forEach(function (n) {
+          if (!childrenByParent.has(n)) roots.push(n);
+        });
+      }
+
+      // Build tree(s)
+      var seenTree = new Set();
+      function dfs(node) {
+        if (seenTree.has(node)) {
+          return { name: label(node), value: node, children: [] }; // break cycles if any
+        }
+        seenTree.add(node);
+        var kids = childrenByParent.get(node);
+        var out = { name: label(node), value: node };
+        if (kids && kids.size) {
+          out.children = Array.from(kids).map(dfs);
+        } else {
+          out.children = [];
+        }
+        return out;
+      }
+      var forest = roots.map(dfs);
+
+      // Build graph nodes + links (parent -> child)
+      var nodes = Array.from(nodesSet).map(function (id) {
+        var lvl = levelByNode.has(id) ? levelByNode.get(id) : null;
+        // Use a STRING category so the legend shows "Level N"
+        var cat = (lvl == null) ? 'Unleveled' : ('Level ' + lvl);
+        return { id: id, name: label(id), value: id, category: cat };
+      });
+      var links = clean.map(function (e) { return { source: e.parent, target: e.child }; });
+
+      // Categories: unique level strings encountered
+      var catSet = new Set(nodes.map(function (n) { return n.category; }));
+      var categories = Array.from(catSet).map(function (c) { return { name: c }; });
+
+      return { forest: forest, nodes: nodes, links: links, categories: categories };
+    }
+    // -----------------------------------------------------------------------------------
+
+    var statusElInit = document.getElementById('status');
+    if (statusElInit) statusElInit.textContent = 'loading ' + dataFile + (view ? ' (' + view + ')' : '');
+    myChart.showLoading();
+
+fetch(dataFile)
+  .then(function (resp) {
+    if (!resp.ok) throw new Error('HTTP ' + resp.status + ' ' + resp.statusText);
+    return resp.json();
+  })
+  .then(function (graph) {
+    myChart.hideLoading();
+
+    // Detect "edges-only" JSON and transform if needed
+    var looksLikeEdgesArray = Array.isArray(graph) && graph.length > 0
+      && graph[0] && typeof graph[0] === 'object'
+      && ('pathwayNodeUri' in graph[0]) && ('parentNodeUri' in graph[0]);
+
+    var edges = null;
+    var labelsByUri = (graph && (graph.labelsByUri || graph.labels)) || {};
+    if (looksLikeEdgesArray) {
+      edges = graph;
+    } else if (graph && Array.isArray(graph.edges)) {
+      edges = graph.edges;
+      if (graph.labelsByUri || graph.labels) labelsByUri = graph.labelsByUri || graph.labels;
+    }
+
+    if (edges) {
+      var tr = edgesToEcharts(edges, labelsByUri);
+
+      if (view === 'tree') {
+        // Optional single synthetic root wrapper via ?root=My%20Root
+        var rootName = params.get('root');
+        var treeData = rootName ? [{ name: rootName, children: tr.forest }] : tr.forest;
+
+        option = {
+          title: {
+            text: 'Pathway Tree',
+            subtext: dataFile,
+            top: 'top',
+            left: 'left'
+          },
+          tooltip: { trigger: 'item', triggerOn: 'mousemove' },
+          series: [{
+            type: 'tree',
+            data: treeData,
+            orient: 'LR',
+            top: '2%', left: '2%', bottom: '2%', right: '20%',
+            symbolSize: 6,
+            expandAndCollapse: true,
+            initialTreeDepth: 3,
+            label: { position: 'left', align: 'right', verticalAlign: 'middle' },
+            leaves: { label: { position: 'right', align: 'left' } },
+            animationDuration: 800,
+            animationDurationUpdate: 600
+          }]
+        };
+        myChart.setOption(option);
+        var statusEl = document.getElementById('status');
+        if (statusEl) statusEl.textContent = 'ready ' + dataFile + ' (tree)';
+        return; // done
+      }
+
+      // Otherwise, replace incoming graph with transformed nodes/links/categories for the force graph
+      graph = { nodes: tr.nodes, links: tr.links, categories: tr.categories };
+    }
+
+    // 1) Normalize nodes: ensure objects, ids, names, symbolSize; deduplicate by id
+    var rawNodes = Array.isArray(graph.nodes) ? graph.nodes : [];
+    var normalizedNodes = [];
+    for (var i = 0; i < rawNodes.length; i++) {
+      var rn = rawNodes[i];
+      if (!rn || typeof rn !== 'object') continue;
+      var nid = rn.id != null ? String(rn.id) : 'n' + i;
+      var nn = {};
+      for (var k in rn) { nn[k] = rn[k]; }
+      nn.id = nid;
+      if (nn.name == null) nn.name = String(nid);
+      if (nn.symbolSize == null) nn.symbolSize = 10;
+      normalizedNodes.push(nn);
+    }
+    var seenIds = new Set();
+    var uniqueNodes = [];
+    for (var j = 0; j < normalizedNodes.length; j++) {
+      var n = normalizedNodes[j];
+      if (seenIds.has(n.id)) continue;
+      seenIds.add(n.id);
+      uniqueNodes.push(n);
+    }
+
+    // 2) Build category names from provided categories and node.category strings
+    var rawCategories = Array.isArray(graph.categories) ? graph.categories : [];
+    var categoryNames = [];
+    rawCategories.forEach(function (c) {
+      if (typeof c === 'string' || typeof c === 'number') categoryNames.push(String(c));
+      else if (c && c.name != null) categoryNames.push(String(c.name));
+    });
+    var nodeCategoryStrings = Array.from(new Set(uniqueNodes
+      .map(function (n) { return n && typeof n.category === 'string' ? n.category : null; })
+      .filter(function (v) { return v !== null; })));
+    nodeCategoryStrings.forEach(function (name) {
+      if (categoryNames.indexOf(name) === -1) categoryNames.push(name);
+    });
+    var maxNumericCategory = -1;
+    uniqueNodes.forEach(function (n) {
+      if (n && typeof n.category === 'number' && n.category > maxNumericCategory) {
+        maxNumericCategory = n.category;
+      }
+    });
+    while (categoryNames.length <= maxNumericCategory) {
+      categoryNames.push('cat_' + categoryNames.length);
+    }
+    var categories = categoryNames.map(function (name) { return { name: String(name) }; });
+    var categoryIndexByName = new Map();
+    categories.forEach(function (c, i) { categoryIndexByName.set(c.name, i); });
+
+    // 3) Finalize node categories and labels
+    uniqueNodes.forEach(function (node) {
+      if (typeof node.category === 'string') {
+        node.category = categoryIndexByName.has(node.category) ? categoryIndexByName.get(node.category) : 0;
+      } else if (typeof node.category === 'number') {
+        if (node.category < 0 || node.category >= categories.length) node.category = 0;
+      }
+      node.label = { position: 'right', formatter: '{b}', show: true };
+    });
+
+    // 4) Normalize links: coerce endpoints to indices using uniqueNodes, drop invalid
+    var idToIndex = new Map(uniqueNodes.map(function (n, i) { return [n.id, i]; }));
+    var normalizedLinks = [];
+    var invalidCount = 0;
+    if (Array.isArray(graph.links)) {
+      graph.links.forEach(function (lnk) {
+        var s = lnk && lnk.source;
+        var t = lnk && lnk.target;
+        if (typeof s === 'string') {
+          if (idToIndex.has(s)) s = idToIndex.get(s);
+          else if (/^\d+$/.test(s)) s = parseInt(s, 10);
+        }
+        if (typeof t === 'string') {
+          if (idToIndex.has(t)) t = idToIndex.get(t);
+          else if (/^\d+$/.test(t)) t = parseInt(t, 10);
+        }
+        if (typeof s === 'number' && typeof t === 'number' && s >= 0 && s < uniqueNodes.length && t >= 0 && t < uniqueNodes.length) {
+          normalizedLinks.push({ source: s, target: t });
+        } else {
+          invalidCount++;
+        }
+      });
+    }
+    if (invalidCount) console.error('invalidLinks:', invalidCount);
+
+    // 5) Layout: force if no coordinates present
+    var hasXY = uniqueNodes.some(function (n) { return n && n.x != null && n.y != null; });
+    var layoutType = hasXY ? 'none' : 'force';
+    option = {
+      title: {
+        text: 'Pathway Graph',
+        subtext: dataFile,
+        top: 'top',
+        left: 'left'
+      },
+      tooltip: {},
+      legend: [
+        {
+          data: categories.map(function (a) { return a.name; })
+        }
+      ],
+      animationDuration: 1500,
+      animationEasingUpdate: 'quinticInOut',
+      series: [
+        {
+          name: 'Pathway Graph',
+          type: 'graph',
+          legendHoverLink: false,
+          layout: layoutType,
+          data: uniqueNodes,
+          links: normalizedLinks,
+          categories: categories,
+          roam: true,
+          label: {
+            position: 'right',
+            formatter: '{b}',
+            show: true
+          },
+          lineStyle: {
+            color: 'source',
+            curveness: 0.3
+          },
+          emphasis: {
+            focus: 'adjacency',
+            lineStyle: {
+              width: 10
+            }
+          },
+          force: hasXY ? undefined : { repulsion: 180, edgeLength: [60, 140] },
+          edgeSymbol: ['none', 'arrow']
+        }
+      ]
+    };
+    myChart.setOption(option);
+    var statusEl = document.getElementById('status');
+    if (statusEl) statusEl.textContent = 'ready ' + dataFile + ' (' + view + ')';
+  })
+  .catch(function (err) {
+    console.error('fetchError:', dataFile, String(err && err.message ? err.message : err));
+    var statusEl = document.getElementById('status');
+    if (statusEl) statusEl.textContent = 'error ' + dataFile;
+  });
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+  </script>
+</body>
+</html>
