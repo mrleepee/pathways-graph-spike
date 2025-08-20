@@ -46,7 +46,8 @@
   <div class="bg-gray-100 p-4 flex flex-col space-y-2">
     <div class="flex items-center space-x-2">
       <label for="protein-uri" class="font-medium">Protein URI</label>
-      <select id="protein-uri" class="border rounded p-2 flex-1 w-[100ch]"></select>
+      <input id="protein-uri" list="protein-uri-list" placeholder="Select a protein" class="border rounded p-2 flex-1 w-[100ch]" />
+      <datalist id="protein-uri-list"></datalist>
       <button id="go-button" class="bg-blue-500 text-white px-4 py-2 rounded">Go</button>
       <div id="status" class="ml-auto text-sm text-gray-600">select a protein</div>
     </div>
@@ -92,16 +93,11 @@
       'protein/1937e1bb-7ba7-34e1-a578-cd216679772c',
       'protein/446a1cd5-a7b3-31d9-80ec-07c641ce232c'
     ];
-    var selectEl = document.getElementById('protein-uri');
-    var placeholder = document.createElement('option');
-    placeholder.value = '';
-    placeholder.textContent = 'Select a protein';
-    selectEl.appendChild(placeholder);
+    var listEl = document.getElementById('protein-uri-list');
     proteinUris.forEach(function (uri) {
       var opt = document.createElement('option');
       opt.value = uri;
-      opt.textContent = uri;
-      selectEl.appendChild(opt);
+      listEl.appendChild(opt);
     });
 
     // --- Edge list -> ECharts converter (uses edge.label for node labels) ---

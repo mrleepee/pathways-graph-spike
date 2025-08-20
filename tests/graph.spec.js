@@ -38,7 +38,7 @@ test.afterAll(() => {
 test('graph has categories, pathway node, info panel updates, thin edges', async ({ page }) => {
   const base = `http://localhost:${server.address().port}`;
   await page.goto(base + '/graph.html');
-  await page.selectOption('#protein-uri', { value: 'protein/b22c31bd-9452-3c21-8dba-ce524c489003' });
+  await page.fill('#protein-uri', 'protein/b22c31bd-9452-3c21-8dba-ce524c489003');
   await page.click('#go-button');
   await page.waitForFunction(() => document.getElementById('status').textContent.startsWith('ready'));
 
