@@ -46,34 +46,9 @@
   <div class="bg-gray-100 p-4 flex flex-col space-y-2">
     <div class="flex items-center space-x-2">
       <label for="protein-uri" class="font-medium">Protein URI</label>
-      <input id="protein-uri" list="protein-uri-list" type="text" value="protein/b22c31bd-9452-3c21-8dba-ce524c489003" class="border rounded p-2 flex-1 w-[100ch]">
-      <datalist id="protein-uri-list">
-        <option value="protein/b22c31bd-9452-3c21-8dba-ce524c489003"></option>
-        <option value="protein/43a394fd-f0f2-3793-baed-d54769333bb5"></option>
-        <option value="protein/38931ea5-0e53-32e2-8f71-6d69803d21bc"></option>
-        <option value="protein/02e95dee-bb0d-3606-a739-59778dc9782b"></option>
-        <option value="protein/a7253daa-abf0-351b-a613-9973ae7ed530"></option>
-        <option value="protein/d3e2db53-be9b-3ab1-902e-97de372f4d72"></option>
-        <option value="protein/a7102a52-46bc-3ea7-bfd8-15552c4838c4"></option>
-        <option value="protein/cfe9990c-1587-3219-9670-6fcc6d83c00f"></option>
-        <option value="protein/0badb052-21e4-3bec-b623-e1faa1460df9"></option>
-        <option value="protein/efcf2961-8d3a-3b87-a12c-d5c227f52e8d"></option>
-        <option value="protein/3617ee87-8e77-350b-abbd-4fd0578dc382"></option>
-        <option value="protein/73fc5baa-ca8b-3e12-b85f-56d5f7771d6d"></option>
-        <option value="protein/196ca11f-a6c6-3776-b262-8a09154ab42b"></option>
-        <option value="protein/ffb67eb6-c83d-32ee-aa6f-674c883791ac"></option>
-        <option value="protein/43c12a27-e8d5-3f65-95b2-70584d6e9d34"></option>
-        <option value="protein/d260a1fe-358c-3a76-b3b7-71325ea4b474"></option>
-        <option value="protein/d8805dad-0d68-36a1-a59c-5f657235e74b"></option>
-        <option value="protein/0c21c5c4-3e82-31c6-97cc-f1f2583500d0"></option>
-        <option value="protein/6e96d5ea-7477-33a8-806e-8537bd6ce755"></option>
-        <option value="protein/62b83394-3e39-31f7-b0d4-19a58fc8fdb3"></option>
-        <option value="protein/9a9c3541-42ce-3fac-96a0-d2f3c4dce955"></option>
-        <option value="protein/1937e1bb-7ba7-34e1-a578-cd216679772c"></option>
-        <option value="protein/446a1cd5-a7b3-31d9-80ec-07c641ce232c"></option>
-      </datalist>
+      <select id="protein-uri" class="border rounded p-2 flex-1 w-[100ch]"></select>
       <button id="go-button" class="bg-blue-500 text-white px-4 py-2 rounded">Go</button>
-      <div id="status" class="ml-auto text-sm text-gray-600">loading</div>
+      <div id="status" class="ml-auto text-sm text-gray-600">select a protein</div>
     </div>
     <div class="flex items-center space-x-4 text-sm">
       <div id="controls">View: <a href="?view=graph" class="text-blue-600 underline">graph</a> | <a href="?view=tree" class="text-blue-600 underline">tree</a></div>
@@ -90,8 +65,44 @@
     var myChart = echarts.init(dom, null, { renderer: 'canvas', useDirtyRect: false });
     var params = new URLSearchParams(location.search);
     var view = (params.get('view') || 'graph').toLowerCase(); // 'graph' or 'tree'
-    var dataFile = 'echarts_graph.json';
     var option;
+
+    var proteinUris = [
+      'protein/b22c31bd-9452-3c21-8dba-ce524c489003',
+      'protein/43a394fd-f0f2-3793-baed-d54769333bb5',
+      'protein/38931ea5-0e53-32e2-8f71-6d69803d21bc',
+      'protein/02e95dee-bb0d-3606-a739-59778dc9782b',
+      'protein/a7253daa-abf0-351b-a613-9973ae7ed530',
+      'protein/d3e2db53-be9b-3ab1-902e-97de372f4d72',
+      'protein/a7102a52-46bc-3ea7-bfd8-15552c4838c4',
+      'protein/cfe9990c-1587-3219-9670-6fcc6d83c00f',
+      'protein/0badb052-21e4-3bec-b623-e1faa1460df9',
+      'protein/efcf2961-8d3a-3b87-a12c-d5c227f52e8d',
+      'protein/3617ee87-8e77-350b-abbd-4fd0578dc382',
+      'protein/73fc5baa-ca8b-3e12-b85f-56d5f7771d6d',
+      'protein/196ca11f-a6c6-3776-b262-8a09154ab42b',
+      'protein/ffb67eb6-c83d-32ee-aa6f-674c883791ac',
+      'protein/43c12a27-e8d5-3f65-95b2-70584d6e9d34',
+      'protein/d260a1fe-358c-3a76-b3b7-71325ea4b474',
+      'protein/d8805dad-0d68-36a1-a59c-5f657235e74b',
+      'protein/0c21c5c4-3e82-31c6-97cc-f1f2583500d0',
+      'protein/6e96d5ea-7477-33a8-806e-8537bd6ce755',
+      'protein/62b83394-3e39-31f7-b0d4-19a58fc8fdb3',
+      'protein/9a9c3541-42ce-3fac-96a0-d2f3c4dce955',
+      'protein/1937e1bb-7ba7-34e1-a578-cd216679772c',
+      'protein/446a1cd5-a7b3-31d9-80ec-07c641ce232c'
+    ];
+    var selectEl = document.getElementById('protein-uri');
+    var placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = 'Select a protein';
+    selectEl.appendChild(placeholder);
+    proteinUris.forEach(function (uri) {
+      var opt = document.createElement('option');
+      opt.value = uri;
+      opt.textContent = uri;
+      selectEl.appendChild(opt);
+    });
 
     // --- Edge list -> ECharts converter (uses edge.label for node labels) ---
     function edgesToEcharts(edges, labelsByUri) {
@@ -502,8 +513,6 @@
           if (statusEl) statusEl.textContent = 'error ' + dataFile;
         });
     }
-
-    loadGraph(dataFile);
 
     document.getElementById('go-button').addEventListener('click', function () {
       var uri = document.getElementById('protein-uri').value.trim();
