@@ -1,23 +1,70 @@
-<!--
-	THIS EXAMPLE WAS DOWNLOADED FROM https://echarts.apache.org/examples/en/editor.html?c=graph
--->
 <!DOCTYPE html>
 <html lang="en" class="h-full">
 <head>
-  <meta charset="utf-8">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Crect width='16' height='16' fill='%234cc'%3E%3C/rect%3E%3C/svg%3E">
+  <meta charset="utf-8" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Crect width='16' height='16' fill='%234cc'%3E%3C/rect%3E%3C/svg%3E" />
   <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="h-full flex flex-col">
+  <!-- Top bar -->
+  <div class="bg-gray-100 p-4 flex flex-col space-y-2">
+    <div class="flex items-center gap-2">
+      <label for="protein-uri" class="font-medium">Protein URI</label>
+
+      <!-- Omnibox -->
+      <div class="relative flex-1 min-w-[320px]">
+        <input id="protein-uri" type="text" placeholder="Type or choose a protein"
+               class="border rounded p-2 w-full pr-10"
+               role="combobox" aria-autocomplete="list" aria-expanded="false"
+               aria-controls="protein-listbox" aria-activedescendant="" />
+        <button id="omnibox-toggle" type="button" aria-label="Show options"
+                class="absolute inset-y-0 right-0 px-2 text-gray-600" title="Show options">▾</button>
+        <div id="omnibox-panel" class="absolute z-10 mt-1 w-full bg-white border rounded shadow max-h-60 overflow-auto hidden">
+          <ul id="protein-listbox" role="listbox"></ul>
+        </div>
+      </div>
+
+      <button id="go-button" class="bg-blue-500 text-white px-4 py-2 rounded">Go</button>
+      <div id="status" class="ml-auto text-sm text-gray-600 shrink-0">select a protein</div>
+    </div>
+
+    <div class="flex items-center justify-between text-sm">
+      <div id="controls" class="flex items-center gap-3 min-w-0">
+        <span>View:</span>
+        <a href="#" data-view="graph" id="view-graph" class="text-blue-600 underline">graph</a>
+        <span>|</span>
+        <a href="#" data-view="tree" id="view-tree" class="text-blue-600 underline">tree</a>
+
+        <button id="reset-view" class="ml-3 px-2 py-1 border rounded whitespace-nowrap">Reset view</button>
+        <!-- Clickable endpoint -->
+        <a id="data-endpoint" href="#" target="_blank" rel="noopener"
+           class="ml-2 text-blue-700 underline truncate max-w-[50vw] hidden"
+           title=""></a>
+      </div>
+      <div id="info-panel" class="shrink-0">Click a node to view details.</div>
+    </div>
+  </div>
+
+  <!-- Chart container + error overlay -->
+  <div id="container" class="flex-1"></div>
+  <div id="error-log" data-has-errors="false" class="bg-gray-800 text-red-300 p-2 overflow-auto max-h-32"></div>
+
+  <!-- ECharts -->
+  <script src="./echarts.min.js"></script>
+
   <script>
-    (function () {
-      var originalConsoleError = console.error && console.error.bind(console);
+  (function () {
+    // ---------- Lightweight error overlay ----------
+    (function setupErrorOverlay() {
+      var orig = console.error && console.error.bind(console);
       window.__errorLog = [];
-      function appendToOverlay(message) {
+      function push(msg) {
         try {
           var el = document.getElementById('error-log');
           if (!el) return;
           el.setAttribute('data-has-errors', 'true');
           var item = document.createElement('div');
-          item.textContent = message;
+          item.textContent = msg;
           el.appendChild(item);
         } catch (_) {}
       }
@@ -27,497 +74,452 @@
           try { return JSON.stringify(a); } catch (_) { return String(a); }
         }).join(' ');
         window.__errorLog.push(msg);
-        appendToOverlay(msg);
-        if (originalConsoleError) originalConsoleError.apply(console, arguments);
+        push(msg);
+        if (orig) orig.apply(console, arguments);
       };
       window.addEventListener('error', function (e) {
-        var msg = e && e.message ? e.message : String(e);
-        if (e && e.error && e.error.stack) msg = e.error.stack;
+        var msg = e && e.error && e.error.stack ? e.error.stack : (e && e.message) || String(e);
         console.error('window.onerror:', msg);
       });
       window.addEventListener('unhandledrejection', function (e) {
-        var msg = (e && e.reason && (e.reason.stack || e.reason.message)) ? (e.reason.stack || e.reason.message) : String(e && e.reason);
+        var r = e && e.reason;
+        var msg = (r && (r.stack || r.message)) || String(r);
         console.error('unhandledrejection:', msg);
       });
     })();
-  </script>
-</head>
-<body class="h-full flex flex-col">
-  <div class="bg-gray-100 p-4 flex flex-col space-y-2">
-    <div class="flex items-center space-x-2">
-      <label for="protein-uri" class="font-medium">Protein URI</label>
-      <input id="protein-uri" list="protein-uri-list" placeholder="Select a protein" class="border rounded p-2 flex-1 w-[100ch]" />
-      <datalist id="protein-uri-list"></datalist>
-      <button id="go-button" class="bg-blue-500 text-white px-4 py-2 rounded">Go</button>
-      <div id="status" class="ml-auto text-sm text-gray-600">select a protein</div>
-    </div>
-    <div class="flex items-center space-x-4 text-sm">
-      <div id="controls">View: <a href="?view=graph" class="text-blue-600 underline">graph</a> | <a href="?view=tree" class="text-blue-600 underline">tree</a></div>
-      <div id="info-panel">Click a node to view details.</div>
-    </div>
-  </div>
-  <div id="container" class="flex-1"></div>
-  <div id="error-log" data-has-errors="false" class="bg-gray-800 text-red-300 p-2 overflow-auto max-h-32"></div>
 
-  <script type="text/javascript" src="./echarts.min.js"></script>
+    // ---------- App (single-file module) ----------
+    var App = {
+      // --- Constants / Data ---
+      STORAGE_KEY: 'selectedProteinUri',
+      PROTEINS: [
+        'protein/b22c31bd-9452-3c21-8dba-ce524c489003',
+        'protein/a7253daa-abf0-351b-a613-9973ae7ed530',
+        'protein/efcf2961-8d3a-3b87-a12c-d5c227f52e8d',
+        'protein/14a22977-52d9-3cc7-9826-d381e4625686',
+        'protein/196ca11f-a6c6-3776-b262-8a09154ab42b',
+        'protein/ffb67eb6-c83d-32ee-aa6f-674c883791ac',
+        'protein/d8805dad-0d68-36a1-a59c-5f657235e74b',
+        'protein/0c21c5c4-3e82-31c6-97cc-f1f2583500d0',
+        'protein/6e96d5ea-7477-33a8-806e-8537bd6ce755',
+        'protein/62b83394-3e39-31f7-b0d4-19a58fc8fdb3'
+      ],
+      CATEGORIES: [
+        { name: 'Top-level category', itemStyle: { color: '#1f77b4' } },
+        { name: 'Pathway',            itemStyle: { color: '#ff7f0e' } },
+        { name: 'Node',               itemStyle: { color: '#2ca02c' } }
+      ],
 
-  <script type="text/javascript">
-    var dom = document.getElementById('container');
-    var myChart = echarts.init(dom, null, { renderer: 'canvas', useDirtyRect: false });
-    var params = new URLSearchParams(location.search);
-    var view = (params.get('view') || 'graph').toLowerCase(); // 'graph' or 'tree'
-    var option;
+      // --- State ---
+      view: (new URLSearchParams(location.search).get('view') || 'graph').toLowerCase(),
+      protein: sessionStorage.getItem('selectedProteinUri') || new URLSearchParams(location.search).get('protein-uri') || '',
+      endpointFor: function (uri) {
+        return 'http://localhost:9324/prototypes/pathways/pathway-graph.xqy?protein-uri=' + encodeURIComponent(uri);
+      },
 
-    var proteinUris = [
-      'protein/b22c31bd-9452-3c21-8dba-ce524c489003',
-      'protein/43a394fd-f0f2-3793-baed-d54769333bb5',
-      'protein/38931ea5-0e53-32e2-8f71-6d69803d21bc',
-      'protein/02e95dee-bb0d-3606-a739-59778dc9782b',
-      'protein/a7253daa-abf0-351b-a613-9973ae7ed530',
-      'protein/d3e2db53-be9b-3ab1-902e-97de372f4d72',
-      'protein/a7102a52-46bc-3ea7-bfd8-15552c4838c4',
-      'protein/cfe9990c-1587-3219-9670-6fcc6d83c00f',
-      'protein/0badb052-21e4-3bec-b623-e1faa1460df9',
-      'protein/efcf2961-8d3a-3b87-a12c-d5c227f52e8d',
-      'protein/3617ee87-8e77-350b-abbd-4fd0578dc382',
-      'protein/73fc5baa-ca8b-3e12-b85f-56d5f7771d6d',
-      'protein/196ca11f-a6c6-3776-b262-8a09154ab42b',
-      'protein/ffb67eb6-c83d-32ee-aa6f-674c883791ac',
-      'protein/43c12a27-e8d5-3f65-95b2-70584d6e9d34',
-      'protein/d260a1fe-358c-3a76-b3b7-71325ea4b474',
-      'protein/d8805dad-0d68-36a1-a59c-5f657235e74b',
-      'protein/0c21c5c4-3e82-31c6-97cc-f1f2583500d0',
-      'protein/6e96d5ea-7477-33a8-806e-8537bd6ce755',
-      'protein/62b83394-3e39-31f7-b0d4-19a58fc8fdb3',
-      'protein/9a9c3541-42ce-3fac-96a0-d2f3c4dce955',
-      'protein/1937e1bb-7ba7-34e1-a578-cd216679772c',
-      'protein/446a1cd5-a7b3-31d9-80ec-07c641ce232c'
-    ];
-    var listEl = document.getElementById('protein-uri-list');
-    proteinUris.forEach(function (uri) {
-      var opt = document.createElement('option');
-      opt.value = uri;
-      listEl.appendChild(opt);
-    });
+      // --- DOM refs ---
+      el: {},
+      $: function (id) { return document.getElementById(id); },
 
-    // --- Edge list -> ECharts converter (uses edge.label for node labels) ---
-    function edgesToEcharts(edges, labelsByUri) {
-      labelsByUri = labelsByUri || {};
+      // --- URL & session sync ---
+      syncUrl: function () {
+        var url = new URL(location.href);
+        url.searchParams.set('view', this.view);
+        if (this.protein) url.searchParams.set('protein-uri', this.protein);
+        history.replaceState(null, '', url.toString());
+        sessionStorage.setItem(this.STORAGE_KEY, this.protein || '');
+      },
 
-      // Dedup edges and harvest labels found on edges for the CHILD node
-      var seen = new Set();
-      var clean = [];
-      var pathwayLinks = [];
-      var typeByNode = new Map();
-      var topLevelNodes = new Set();
-      for (var i = 0; i < edges.length; i++) {
-        var e = edges[i] || {};
-        if (e.pathway && e.parentNodeUri) {
-          // Pathway reference -> create node + link
-          var p = String(e.pathway);
-          var pn = String(e.parentNodeUri);
-          if (e.label && !labelsByUri[p]) labelsByUri[p] = String(e.label).trim();
-          typeByNode.set(p, 'pathway');
-          typeByNode.set(pn, 'node');
-          pathwayLinks.push({ pathway: p, parent: pn });
-          continue;
-        }
-        var child = e.pathwayNodeUri, parent = e.parentNodeUri, level = e.level;
-        if (!child || !parent) continue;
-
-        // Record label for the child when present
-        if (e.label && !labelsByUri[child]) labelsByUri[child] = String(e.label).trim();
-
-        typeByNode.set(String(child), 'node');
-        typeByNode.set(String(parent), 'node');
-        if (String(parent) === 'root') topLevelNodes.add(String(child));
-
-        var k = child + '|' + parent;
-        if (seen.has(k)) continue;
-        seen.add(k);
-        clean.push({ child: String(child), parent: String(parent), level: level });
-      }
-
-      // Build indices/maps
-      var nodesSet = new Set();
-      var childrenByParent = new Map();
-      var parentsByChild = new Map();
-      var levelByNode = new Map();
-      pathwayLinks.forEach(function (p) {
-        nodesSet.add(p.pathway);
-        nodesSet.add(p.parent);
-      });
-      for (var j = 0; j < clean.length; j++) {
-        var c = clean[j];
-        nodesSet.add(c.child);
-        nodesSet.add(c.parent);
-        if (!childrenByParent.has(c.parent)) childrenByParent.set(c.parent, new Set());
-        childrenByParent.get(c.parent).add(c.child);
-        if (!parentsByChild.has(c.child)) parentsByChild.set(c.child, new Set());
-        parentsByChild.get(c.child).add(c.parent);
-        if (c.level != null && !levelByNode.has(c.child)) levelByNode.set(c.child, c.level);
-      }
-
-      function label(uri) { return labelsByUri[uri] || uri; }
-
-      // Roots: nodes that are parents but never children
-      var roots = [];
-      childrenByParent.forEach(function (_kids, p) {
-        if (!parentsByChild.has(p)) roots.push(p);
-      });
-      if (!roots.length) { // fallback
-        nodesSet.forEach(function (n) {
-          if (!childrenByParent.has(n)) roots.push(n);
-        });
-      }
-
-      // Build tree(s)
-      var seenTree = new Set();
-      function dfs(node) {
-        if (seenTree.has(node)) {
-          return { name: label(node), value: node, children: [] };
-        }
-        seenTree.add(node);
-        var kids = childrenByParent.get(node);
-        var out = { name: label(node), value: node };
-        out.children = kids ? Array.from(kids).map(dfs) : [];
-        return out;
-      }
-      var forest = roots.map(dfs);
-
-      // Build graph nodes + links
-      var sizeFactor = 8; // enlarge nodes based on level (1-7 -> 8-56)
-      var rootSet = new Set(roots);
-      var categoriesSet = new Set();
-      var nodes = Array.from(nodesSet).map(function (id) {
-        var lvl = levelByNode.has(id) ? levelByNode.get(id) : null;
-        var node = {
-          id: id,
-          name: label(id),
-          value: id
-        };
-        if (topLevelNodes.has(id)) {
-          node.category = 'Top-level category';
-          categoriesSet.add('Top-level category');
+      // --- Endpoint link beside Reset view ---
+      setEndpointLink: function (href) {
+        var a = this.el.endpoint;
+        if (!a) return;
+        if (href) {
+          a.classList.remove('hidden');
+          a.href = href; a.textContent = href; a.title = href;
         } else {
-          var t = typeByNode.get(id);
-          if (t === 'pathway') {
-            node.category = 'Pathway';
-            categoriesSet.add('Pathway');
-          } else if (t === 'node') {
-            node.category = 'Node';
-            categoriesSet.add('Node');
-          }
+          a.classList.add('hidden');
+          a.removeAttribute('href'); a.textContent = ''; a.title = '';
         }
-        if (lvl != null) {
-          var scaled = lvl * sizeFactor;
-          node.size = scaled;
-          node.symbolSize = scaled;
-        }
-        if (rootSet.has(id)) {
-          node.itemStyle = { color: '#2e8b57' };
-        }
-        return node;
-      });
+      },
 
-      var categories = Array.from(categoriesSet).map(function (name) { return { name: name }; });
-
-      // Fast lookup for link augmentation
-      var idToIndex = new Map(nodes.map(function (n, i) { return [n.id, i]; }));
-
-      var links = clean
-        .filter(function (e) { return idToIndex.has(e.parent) && idToIndex.has(e.child); })
-        .map(function (e) {
-          var sIdx = idToIndex.get(e.parent);
-          var tIdx = idToIndex.get(e.child);
-          return {
-            source: sIdx,
-            target: tIdx,
-            sourceUri: nodes[sIdx].id,
-            targetUri: nodes[tIdx].id,
-            sourceLabel: nodes[sIdx].name,
-            targetLabel: nodes[tIdx].name
-          };
-        });
-
-      // Links for pathways
-      pathwayLinks.forEach(function (p) {
-        if (idToIndex.has(p.pathway) && idToIndex.has(p.parent)) {
-          var sIdx = idToIndex.get(p.pathway);
-          var tIdx = idToIndex.get(p.parent);
-          links.push({
-            source: sIdx,
-            target: tIdx,
-            sourceUri: nodes[sIdx].id,
-            targetUri: nodes[tIdx].id,
-            sourceLabel: nodes[sIdx].name,
-            targetLabel: nodes[tIdx].name
+      // --- Omnibox factory (compact, delegated) ---
+      makeOmnibox: function (input, listbox, panel, toggleBtn, items, onSelect) {
+        var isOpen = false, active = -1, current = items.slice(0);
+        function open() { if (!isOpen) { isOpen = true; panel.classList.remove('hidden'); input.setAttribute('aria-expanded', 'true'); } }
+        function close(){ if (isOpen)  { isOpen = false; panel.classList.add('hidden'); input.setAttribute('aria-expanded','false'); setActive(-1); } }
+        function render(list) {
+          listbox.innerHTML = '';
+          list.forEach(function (uri, i) {
+            var li = document.createElement('li');
+            li.id = 'protein-opt-' + i;
+            li.setAttribute('role', 'option');
+            li.dataset.index = String(i);
+            li.className = 'px-3 py-1 cursor-pointer hover:bg-blue-50';
+            li.textContent = uri;
+            listbox.appendChild(li);
           });
         }
-      });
-
-      return { forest: forest, nodes: nodes, links: links, categories: categories };
-    }
-    // ----------------------------------------------------------------------
-
-    // Shared tooltip formatter for both graph and tree
-    function makeTooltipFormatter(kind) {
-      return function (p) {
-        var enc = echarts.format.encodeHTML;
-        if (p.dataType === 'node') {
-          var n = p.data || {};
-          var label = n.name != null ? String(n.name) : '';
-          var uri = n.value != null ? String(n.value) : '';
-          // Show visible label, then URI
-          return '<b>' + enc(label) + '</b><br/>URI: ' + enc(uri);
+        function filter(q) {
+          q = q.trim().toLowerCase();
+          current = q ? items.filter(function (u){ return u.toLowerCase().indexOf(q)!==-1; }) : items.slice(0);
+          render(current);
         }
-        if (p.dataType === 'edge' && kind === 'graph') {
-          var d = p.data || {};
-          var l1 = (d.sourceLabel != null ? d.sourceLabel : d.source) + ' → ' + (d.targetLabel != null ? d.targetLabel : d.target);
-          var l2 = (d.sourceUri != null ? d.sourceUri : '') + ' → ' + (d.targetUri != null ? d.targetUri : '');
-          return enc(l1) + '<br/>' + enc(l2);
-        }
-        return '';
-      };
-    }
-
-    function loadGraph(dataFile) {
-      var statusElInit = document.getElementById('status');
-      if (statusElInit) statusElInit.textContent = 'loading ' + dataFile + (view ? ' (' + view + ')' : '');
-      myChart.showLoading();
-
-      fetch(dataFile)
-        .then(function (resp) {
-          if (!resp.ok) throw new Error('HTTP ' + resp.status + ' ' + resp.statusText);
-          return resp.json();
-        })
-        .then(function (graph) {
-          myChart.hideLoading();
-
-        // Detect edges-only JSON and transform if needed
-        var looksLikeEdgesArray = Array.isArray(graph) && graph.some(function (row) {
-          return row && typeof row === 'object' && ('pathwayNodeUri' in row) && ('parentNodeUri' in row);
-        });
-
-        var edges = null;
-        var labelsByUri = (graph && (graph.labelsByUri || graph.labels)) || {};
-        if (looksLikeEdgesArray) {
-          edges = graph;
-        } else if (graph && Array.isArray(graph.edges)) {
-          edges = graph.edges;
-          if (graph.labelsByUri || graph.labels) labelsByUri = graph.labelsByUri || graph.labels;
-        }
-
-        if (edges) {
-          var tr = edgesToEcharts(edges, labelsByUri);
-
-          if (view === 'tree') {
-            var rootName = params.get('root');
-            var treeData = rootName ? [{ name: rootName, children: tr.forest }] : tr.forest;
-
-            option = {
-              title: { text: 'Pathway Tree', subtext: dataFile, top: 'top', left: 'left' },
-              tooltip: { trigger: 'item', triggerOn: 'mousemove', formatter: makeTooltipFormatter('tree') },
-              series: [{
-                type: 'tree',
-                data: treeData,
-                orient: 'LR',
-                top: '2%', left: '2%', bottom: '2%', right: '20%',
-                symbolSize: 6,
-                expandAndCollapse: true,
-                initialTreeDepth: 3,
-                label: { show: true, position: 'left', align: 'right', verticalAlign: 'middle' },
-                leaves: { label: { show: true, position: 'right', align: 'left' } },
-                animationDuration: 800,
-                animationDurationUpdate: 600
-              }]
-            };
-            myChart.setOption(option);
-            var statusEl = document.getElementById('status');
-            if (statusEl) statusEl.textContent = 'ready ' + dataFile + ' (tree)';
-            return;
-          }
-
-          // Replace incoming graph with transformed nodes/links/categories for the force graph
-          graph = { nodes: tr.nodes, links: tr.links, categories: tr.categories };
-        }
-
-        // --- Standard ECharts graph normalization (kept, but labels come from .name we set above) ---
-        var rawNodes = Array.isArray(graph.nodes) ? graph.nodes : [];
-        var normalizedNodes = [];
-        for (var i = 0; i < rawNodes.length; i++) {
-          var rn = rawNodes[i];
-          if (!rn || typeof rn !== 'object') continue;
-          var nid = rn.id != null ? String(rn.id) : 'n' + i;
-          var nn = {};
-          for (var k in rn) { nn[k] = rn[k]; }
-          nn.id = nid;
-          if (nn.name == null) nn.name = String(nid);  // name = label shown on node
-          if (nn.value == null) nn.value = nid;        // keep URI in value for tooltip
-          if (nn.symbolSize == null) nn.symbolSize = 10;
-          normalizedNodes.push(nn);
-        }
-        var seenIds = new Set();
-        var uniqueNodes = [];
-        for (var j = 0; j < normalizedNodes.length; j++) {
-          var n = normalizedNodes[j];
-          if (seenIds.has(n.id)) continue;
-          seenIds.add(n.id);
-          uniqueNodes.push(n);
-        }
-
-        // Categories for node types
-        var rawCategories = Array.isArray(graph.categories) ? graph.categories : [];
-        var categoryNames = [];
-        rawCategories.forEach(function (c) {
-          if (typeof c === 'string' || typeof c === 'number') categoryNames.push(String(c));
-          else if (c && c.name != null) categoryNames.push(String(c.name));
-        });
-        var categories = categoryNames.map(function (name) { return { name: String(name) }; });
-        var categoryIndexByName = new Map();
-        categories.forEach(function (c, i) { categoryIndexByName.set(c.name, i); });
-
-        uniqueNodes.forEach(function (node) {
-          if (typeof node.category === 'string') {
-            node.category = categoryIndexByName.has(node.category) ? categoryIndexByName.get(node.category) : 0;
-          } else if (typeof node.category === 'number') {
-            if (node.category < 0 || node.category >= categories.length) node.category = 0;
-          }
-          node.label = { position: 'right', formatter: '{b}', show: true }; // ALWAYS show node label
-        });
-
-        // Normalize links to indices and also embed names/URIs for better edge tooltips
-        var idToIndex = new Map(uniqueNodes.map(function (n, i) { return [n.id, i]; }));
-        var normalizedLinks = [];
-        var invalidCount = 0;
-        if (Array.isArray(graph.links)) {
-          graph.links.forEach(function (lnk) {
-            var s = lnk && lnk.source;
-            var t = lnk && lnk.target;
-            if (typeof s === 'string') {
-              if (idToIndex.has(s)) s = idToIndex.get(s);
-              else if (/^\d+$/.test(s)) s = parseInt(s, 10);
-            }
-            if (typeof t === 'string') {
-              if (idToIndex.has(t)) t = idToIndex.get(t);
-              else if (/^\d+$/.test(t)) t = parseInt(t, 10);
-            }
-            if (typeof s === 'number' && typeof t === 'number'
-                && s >= 0 && s < uniqueNodes.length && t >= 0 && t < uniqueNodes.length) {
-              normalizedLinks.push({
-                source: s,
-                target: t,
-                sourceUri: uniqueNodes[s].id,
-                targetUri: uniqueNodes[t].id,
-                sourceLabel: uniqueNodes[s].name,
-                targetLabel: uniqueNodes[t].name
-              });
-            } else {
-              invalidCount++;
-            }
+        function setActive(i) {
+          active = i;
+          var opts = listbox.querySelectorAll('[role="option"]');
+          opts.forEach(function (el, idx) {
+            if (idx === i) { el.classList.add('bg-blue-100'); el.setAttribute('aria-selected','true'); input.setAttribute('aria-activedescendant', el.id); }
+            else { el.classList.remove('bg-blue-100'); el.removeAttribute('aria-selected'); }
           });
+          if (i>=0 && i<opts.length) opts[i].scrollIntoView({block:'nearest'});
+          else input.setAttribute('aria-activedescendant','');
         }
-        if (invalidCount) console.error('invalidLinks:', invalidCount);
-
-        var hasXY = uniqueNodes.some(function (n) { return n && n.x != null && n.y != null; });
-        var layoutType = hasXY ? 'none' : 'force';
-
-        // Build adjacency map to highlight full connected components
-        var adjacency = new Map();
-        normalizedLinks.forEach(function (lnk) {
-          if (!adjacency.has(lnk.source)) adjacency.set(lnk.source, new Set());
-          if (!adjacency.has(lnk.target)) adjacency.set(lnk.target, new Set());
-          adjacency.get(lnk.source).add(lnk.target);
-          adjacency.get(lnk.target).add(lnk.source);
+        // events
+        input.addEventListener('focus', open);
+        input.addEventListener('input', function(){ filter(input.value); open(); setActive(-1); });
+        input.addEventListener('keydown', function(e){
+          if (e.key==='ArrowDown'){ e.preventDefault(); if(!isOpen) open(); setActive((active+1+(current.length||1))% (current.length||1)); }
+          else if (e.key==='ArrowUp'){ e.preventDefault(); if(!isOpen) open(); setActive((active-1+(current.length||1))% (current.length||1)); }
+          else if (e.key==='Enter'){ e.preventDefault();
+            if (isOpen && active>=0 && current[active]) { input.value=current[active]; close(); onSelect(current[active]); }
+            else { close(); onSelect(input.value); }
+          } else if (e.key==='Escape'){ if(isOpen){ e.preventDefault(); close(); } }
         });
+        listbox.addEventListener('mousedown', function(e){
+          var li = e.target.closest('[role="option"]'); if(!li) return; e.preventDefault();
+          var idx = Number(li.dataset.index); var val = current[idx]; input.value = val; close(); onSelect(val);
+        });
+        toggleBtn.addEventListener('click', function(){ isOpen ? close() : (open(), input.focus()); });
+        document.addEventListener('mousedown', function(e){
+          if (!panel.contains(e.target) && e.target!==input && e.target!==toggleBtn) close();
+        });
+        render(current);
+      },
 
-        function connectedComponent(startIdx) {
-          var seen = new Set();
-          var stack = [startIdx];
-          while (stack.length) {
-            var idx = stack.pop();
-            if (seen.has(idx)) continue;
-            seen.add(idx);
-            var nbrs = adjacency.get(idx);
-            if (nbrs) nbrs.forEach(function (n) {
-              if (!seen.has(n)) stack.push(n);
+      // --- ECharts helpers ---
+      makeTooltip: function(kind){
+        return function (p) {
+          var enc = echarts.format.encodeHTML;
+          if (p.dataType === 'node') {
+            var n = p.data || {};
+            var label = n.name != null ? String(n.name) : '';
+            var uri = n.value != null ? String(n.value) : '';
+            return '<b>' + enc(label) + '</b><br/>URI: ' + enc(uri);
+          }
+          if (p.dataType === 'edge' && kind === 'graph') {
+            var d = p.data || {};
+            var l1 = (d.sourceLabel ?? d.source) + ' → ' + (d.targetLabel ?? d.target);
+            var l2 = (d.sourceUri ?? '') + ' → ' + (d.targetUri ?? '');
+            return enc(l1) + '<br/>' + enc(l2);
+          }
+          return '';
+        };
+      },
+
+      edgesToEcharts: function (edges, labelsByUri) {
+        labelsByUri = labelsByUri || {};
+        var seen = new Set(), clean = [], pathwayLinks = [];
+        var typeByNode = new Map(), levelByNode = new Map(), topLevel = new Set();
+        for (var i=0;i<edges.length;i++){
+          var e = edges[i] || {};
+          if (e.pathway && e.parentNodeUri){
+            var p = String(e.pathway), pn = String(e.parentNodeUri);
+            if (e.label && !labelsByUri[p]) labelsByUri[p] = String(e.label).trim();
+            typeByNode.set(p,'pathway'); typeByNode.set(pn,'node');
+            pathwayLinks.push({pathway:p,parent:pn}); continue;
+          }
+          var child = e.pathwayNodeUri, parent = e.parentNodeUri, level = e.level;
+          if (!child || !parent) continue;
+          if (e.label && !labelsByUri[child]) labelsByUri[child] = String(e.label).trim();
+          typeByNode.set(String(child),'node'); typeByNode.set(String(parent),'node');
+          if (String(parent)==='root') topLevel.add(String(child));
+          var k = child + '|' + parent; if (seen.has(k)) continue; seen.add(k);
+          clean.push({ child:String(child), parent:String(parent), level:level });
+          if (level!=null && !levelByNode.has(String(child))) levelByNode.set(String(child), level);
+        }
+        // Build maps
+        var nodesSet = new Set(), childrenByParent = new Map(), parentsByChild = new Map();
+        pathwayLinks.forEach(function(p){ nodesSet.add(p.pathway); nodesSet.add(p.parent); });
+        for (var j=0;j<clean.length;j++){
+          var c = clean[j]; nodesSet.add(c.child); nodesSet.add(c.parent);
+          if(!childrenByParent.has(c.parent)) childrenByParent.set(c.parent,new Set());
+          childrenByParent.get(c.parent).add(c.child);
+          if(!parentsByChild.has(c.child)) parentsByChild.set(c.child,new Set());
+          parentsByChild.get(c.child).add(c.parent);
+        }
+        function label(uri){ return labelsByUri[uri] || uri; }
+        // Roots
+        var roots = [];
+        childrenByParent.forEach(function(_kids,p){ if(!parentsByChild.has(p)) roots.push(p); });
+        if (!roots.length) nodesSet.forEach(function(n){ if(!childrenByParent.has(n)) roots.push(n); });
+        // Tree
+        var seenTree = new Set();
+        function dfs(node){
+          if (seenTree.has(node)) return { name: label(node), value: node, children: [] };
+          seenTree.add(node);
+          var kids = childrenByParent.get(node);
+          return { name: label(node), value: node, children: kids ? Array.from(kids).map(dfs) : [] };
+        }
+        var forest = roots.map(dfs);
+        // Graph nodes/links
+        var sizeFactor = 8, rootSet = new Set(roots);
+        var nodes = Array.from(nodesSet).map(function (id){
+          var lvl = levelByNode.has(id) ? levelByNode.get(id) : null;
+          var n = { id:id, name:label(id), value:id };
+          if (topLevel.has(id)) n.category = 'Top-level category';
+          else n.category = (typeByNode.get(id)==='pathway') ? 'Pathway' : 'Node';
+          if (lvl!=null){ var s = lvl*sizeFactor; n.size=s; n.symbolSize=s; }
+          if (rootSet.has(id)) n.itemStyle = { color: '#2e8b57' };
+          return n;
+        });
+        var idToIndex = new Map(nodes.map(function(n,i){ return [n.id,i]; }));
+        var links = clean.filter(function(e){ return idToIndex.has(e.parent)&&idToIndex.has(e.child); })
+                         .map(function(e){
+                           var s = idToIndex.get(e.parent), t = idToIndex.get(e.child);
+                           return { source:s, target:t,
+                                    sourceUri:nodes[s].id, targetUri:nodes[t].id,
+                                    sourceLabel:nodes[s].name, targetLabel:nodes[t].name };
+                         });
+        pathwayLinks.forEach(function(p){
+          if (idToIndex.has(p.pathway) && idToIndex.has(p.parent)){
+            var s = idToIndex.get(p.pathway), t = idToIndex.get(p.parent);
+            links.push({ source:s, target:t,
+                         sourceUri:nodes[s].id, targetUri:nodes[t].id,
+                         sourceLabel:nodes[s].name, targetLabel:nodes[t].name });
+          }
+        });
+        return { forest: forest, nodes: nodes, links: links };
+      },
+
+      normalizeGraph: function (graphNodes, graphLinks) {
+        var rawNodes = Array.isArray(graphNodes) ? graphNodes : [];
+        // unique nodes by id
+        var uniq = [], seen = new Set();
+        for (var i=0;i<rawNodes.length;i++){
+          var rn = rawNodes[i]; if (!rn || typeof rn!=='object') continue;
+          var id = rn.id!=null ? String(rn.id) : ('n'+i);
+          if (seen.has(id)) continue; seen.add(id);
+          var n = Object.assign({}, rn);
+          n.id = id; if (n.name==null) n.name = id; if (n.value==null) n.value=id;
+          if (n.symbolSize==null) n.symbolSize = 10;
+          n.label = { position:'right', formatter:'{b}', show:true };
+          uniq.push(n);
+        }
+        // categories -> indices
+        var cats = this.CATEGORIES.map(function(c){ return c.name; });
+        var catIdx = new Map(cats.map(function(n,i){ return [n,i]; }));
+        uniq.forEach(function(n){
+          if (typeof n.category==='string') n.category = catIdx.has(n.category) ? catIdx.get(n.category) : 0;
+          else if (typeof n.category!=='number') n.category = 0;
+        });
+        // links to indices
+        var id2idx = new Map(uniq.map(function(n,i){ return [n.id,i]; }));
+        var links = [], invalid=0;
+        (graphLinks || []).forEach(function(lnk){
+          var s = lnk && lnk.source, t = lnk && lnk.target;
+          if (typeof s==='string') s = id2idx.has(s) ? id2idx.get(s) : (/^\d+$/.test(s)?parseInt(s,10):s);
+          if (typeof t==='string') t = id2idx.has(t) ? id2idx.get(t) : (/^\d+$/.test(t)?parseInt(t,10):t);
+          if (typeof s==='number' && typeof t==='number' && s>=0 && t>=0 && s<uniq.length && t<uniq.length){
+            links.push({ source:s, target:t,
+              sourceUri: uniq[s].id, targetUri: uniq[t].id,
+              sourceLabel: uniq[s].name, targetLabel: uniq[t].name
             });
-          }
-          return seen;
-        }
+          } else invalid++;
+        });
+        if (invalid) console.error('invalidLinks:', invalid);
+        return { nodes: uniq, links: links };
+      },
 
-        function highlightConnected(params) {
-          if (params.dataType !== 'node') return;
-          var nodesToHighlight = connectedComponent(params.dataIndex);
-          var edgesToHighlight = [];
-          normalizedLinks.forEach(function (lnk, i) {
-            if (nodesToHighlight.has(lnk.source) && nodesToHighlight.has(lnk.target)) {
-              edgesToHighlight.push(i);
-            }
-          });
-          myChart.dispatchAction({ type: 'downplay', seriesIndex: 0 });
-          nodesToHighlight.forEach(function (n) {
-            myChart.dispatchAction({ type: 'highlight', seriesIndex: 0, dataType: 'node', dataIndex: n });
-          });
-          edgesToHighlight.forEach(function (eIdx) {
-            myChart.dispatchAction({ type: 'highlight', seriesIndex: 0, dataType: 'edge', dataIndex: eIdx });
-          });
-        }
-
-        option = {
-          title: { text: 'Pathway Graph', subtext: dataFile, top: 'top', left: 'left' },
-          tooltip: { trigger: 'item', formatter: makeTooltipFormatter('graph') },
-          legend: categories.length ? [{ data: categories.map(function (a) { return a.name; }) }] : [],
-          animationDuration: 1500,
+      makeGraphOption: function (nodes, links) {
+        var hasXY = nodes.some(function (n){ return n && n.x!=null && n.y!=null; });
+        return {
+          title: { text: 'Pathway Graph', top: 'top', left: 'left' },
+          tooltip: { trigger: 'item', formatter: this.makeTooltip('graph') },
+          legend: [{ data: this.CATEGORIES.map(function (c){ return c.name; }) }],
+          toolbox: { show: true, right: 10, feature: { restore: {}, saveAsImage: {} } },
+          animationDuration: 800,
           animationEasingUpdate: 'quinticInOut',
           series: [{
-            name: 'Pathway Graph',
             type: 'graph',
-            legendHoverLink: false,
-            layout: layoutType,
-            data: uniqueNodes,
-            links: normalizedLinks,
-            categories: categories,
-            roam: 'scale',
+            name: 'Pathway Graph',
+            layout: hasXY ? 'none' : 'force',
+            data: nodes,
+            links: links,
+            categories: this.CATEGORIES,
+            roam: true,
             draggable: true,
-            label: { position: 'right', formatter: '{b}', show: true }, // keep labels visible
             lineStyle: { width: 1, color: 'source', curveness: 0.3 },
             emphasis: { focus: 'none', lineStyle: { width: 2 } },
             force: hasXY ? undefined : { repulsion: 180, edgeLength: [60, 140] },
             edgeSymbol: ['none', 'arrow']
           }]
         };
+      },
 
-        myChart.setOption(option);
-        myChart.on('mouseover', highlightConnected);
-        myChart.on('click', function (params) {
-          highlightConnected(params);
-          if (params.dataType === 'node') {
-            var infoEl = document.getElementById('info-panel');
-            if (infoEl) infoEl.textContent = params.data.name + ' (' + params.data.value + ')';
-          }
-        });
-        myChart.on('globalout', function () {
-          myChart.dispatchAction({ type: 'downplay', seriesIndex: 0 });
-        });
-          var statusEl = document.getElementById('status');
-          if (statusEl) statusEl.textContent = 'ready ' + dataFile + ' (' + view + ')';
-        })
-        .catch(function (err) {
-          console.error('fetchError:', dataFile, String(err && err.message ? err.message : err));
-          var statusEl = document.getElementById('status');
-          if (statusEl) statusEl.textContent = 'error ' + dataFile;
-        });
-    }
+      makeTreeOption: function (forest) {
+        return {
+          title: { text: 'Pathway Tree', top: 'top', left: 'left' },
+          tooltip: { trigger: 'item', triggerOn: 'mousemove', formatter: this.makeTooltip('tree') },
+          toolbox: { show: true, right: 10, feature: { restore: {}, saveAsImage: {} } },
+          series: [{
+            type: 'tree',
+            data: forest,
+            orient: 'LR',
+            top: '2%', left: '2%', bottom: '2%', right: '10%',
+            symbolSize: 6,
+            expandAndCollapse: true,
+            initialTreeDepth: -1,  // expand all
+            label: { show: true, position: 'left', align: 'right', verticalAlign: 'middle' },
+            leaves: { label: { show: true, position: 'right', align: 'left' } },
+            animationDuration: 600,
+            animationDurationUpdate: 400,
+            roam: true
+          }]
+        };
+      },
 
-    document.getElementById('go-button').addEventListener('click', function () {
-      var uri = document.getElementById('protein-uri').value.trim();
-      if (!uri) return;
-      var url = 'http://localhost:9324/prototypes/pathways/pathway-graph.xqy?protein-uri=' + encodeURIComponent(uri);
-      loadGraph(url);
-    });
+      // --- Chart loading ---
+      loadChart: function (endpoint) {
+        var status = this.el.status;
+        if (status) status.textContent = 'loading… (' + this.view + ')';
+        this.chart.showLoading();
+        var self = this;
 
-    window.addEventListener('resize', myChart.resize);
+        fetch(endpoint)
+          .then(function (r){ if(!r.ok) throw new Error('HTTP '+r.status+' '+r.statusText); return r.json(); })
+          .then(function (edges) {
+            self.chart.hideLoading();
+            var tr = self.edgesToEcharts(edges, {});
+
+            if (self.view === 'tree') {
+              self.chart.setOption(self.makeTreeOption(tr.forest), true);
+              try { self.chart.dispatchAction({ type: 'treeExpandAll' }); } catch (_) {}
+              if (status) status.textContent = 'ready (tree)';
+              return;
+            }
+
+            var norm = self.normalizeGraph(tr.nodes, tr.links);
+            self.chart.setOption(self.makeGraphOption(norm.nodes, norm.links), true);
+
+            // highlight connected on hover/click
+            self.chart.off('mouseover'); self.chart.off('click'); self.chart.off('globalout');
+            var adj = new Map();
+            norm.links.forEach(function (lnk){
+              if(!adj.has(lnk.source)) adj.set(lnk.source,new Set());
+              if(!adj.has(lnk.target)) adj.set(lnk.target,new Set());
+              adj.get(lnk.source).add(lnk.target);
+              adj.get(lnk.target).add(lnk.source);
+            });
+            function component(start){
+              var seen=new Set(), stack=[start];
+              while(stack.length){ var i=stack.pop(); if(seen.has(i)) continue; seen.add(i); (adj.get(i)||[]).forEach(function(n){ if(!seen.has(n)) stack.push(n); }); }
+              return seen;
+            }
+            function highlight(params){
+              if(params.dataType!=='node') return;
+              var set = component(params.dataIndex), es=[];
+              norm.links.forEach(function(lnk,idx){ if(set.has(lnk.source)&&set.has(lnk.target)) es.push(idx); });
+              self.chart.dispatchAction({ type:'downplay', seriesIndex:0 });
+              set.forEach(function(n){ self.chart.dispatchAction({ type:'highlight', seriesIndex:0, dataType:'node', dataIndex:n }); });
+              es.forEach(function(i){ self.chart.dispatchAction({ type:'highlight', seriesIndex:0, dataType:'edge', dataIndex:i }); });
+            }
+            self.chart.on('mouseover', highlight);
+            self.chart.on('click', function (params) {
+              highlight(params);
+              if (params.dataType==='node' && self.el.info) self.el.info.textContent = params.data.name + ' (' + params.data.value + ')';
+            });
+            self.chart.on('globalout', function(){ self.chart.dispatchAction({ type:'downplay', seriesIndex:0 }); });
+            if (status) status.textContent = 'ready (graph)';
+          })
+          .catch(function (err){
+            console.error('fetchError:', endpoint, (err && err.message) || err);
+            self.chart.hideLoading();
+            if (status) status.textContent = 'error loading data';
+          });
+      },
+
+      // --- Public actions ---
+      runWithProtein: function (uri) {
+        uri = (uri || '').trim(); if (!uri) return;
+        this.protein = uri; this.syncUrl();
+        var endpoint = this.endpointFor(this.protein);
+        this.setEndpointLink(endpoint);
+        this.loadChart(endpoint);
+      },
+      setView: function (v) {
+        this.view = (v || 'graph').toLowerCase();
+        this.syncUrl();
+        this.el.viewGraph.classList.toggle('font-semibold', this.view==='graph');
+        this.el.viewTree.classList.toggle('font-semibold', this.view==='tree');
+        if (this.protein) this.runWithProtein(this.protein);
+      },
+
+      // --- Init ---
+      init: function () {
+        // cache DOM
+        this.el = {
+          status: this.$('status'),
+          endpoint: this.$('data-endpoint'),
+          info: this.$('info-panel'),
+          viewGraph: this.$('view-graph'),
+          viewTree: this.$('view-tree'),
+          controls: this.$('controls'),
+          btnReset: this.$('reset-view'),
+          input: this.$('protein-uri'),
+          panel: this.$('omnibox-panel'),
+          listbox: this.$('protein-listbox'),
+          toggle: this.$('omnibox-toggle'),
+          btnGo: this.$('go-button'),
+          errors: this.$('error-log'),
+          container: this.$('container')
+        };
+
+        // hydrate input
+        if (this.protein && this.el.input) this.el.input.value = this.protein;
+
+        // chart instance
+        this.chart = echarts.init(this.el.container, null, { renderer: 'canvas', useDirtyRect: false });
+
+        // omnibox
+        var self = this;
+        this.makeOmnibox(this.el.input, this.el.listbox, this.el.panel, this.el.toggle, this.PROTEINS, function (val) {
+          self.runWithProtein(val);
+        });
+
+        // Go button
+        this.el.btnGo.addEventListener('click', function () { self.runWithProtein(self.el.input.value); });
+
+        // View toggles (no page reload)
+        this.el.controls.addEventListener('click', function (e) {
+          var a = e.target.closest('a[data-view]'); if (!a) return; e.preventDefault();
+          self.setView(a.getAttribute('data-view'));
+        });
+
+        // Reset view
+        this.el.btnReset.addEventListener('click', function () { try { self.chart.dispatchAction({ type:'restore' }); } catch(_) {} });
+
+        // initial view emphasis
+        this.el.viewGraph.classList.toggle('font-semibold', this.view==='graph');
+        this.el.viewTree.classList.toggle('font-semibold', this.view==='tree');
+
+        // auto-load if we already have a protein
+        if (this.protein) {
+          var endpoint = this.endpointFor(this.protein);
+          this.setEndpointLink(endpoint);
+          this.loadChart(endpoint);
+        } else {
+          this.setEndpointLink('');
+        }
+
+        // responsive
+        window.addEventListener('resize', function(){ self.chart.resize(); });
+      }
+    };
+
+    // boot
+    App.init();
+  })();
   </script>
 </body>
 </html>
