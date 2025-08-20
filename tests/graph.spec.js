@@ -6,6 +6,18 @@ const http = require('http');
 let server;
 test.beforeAll(async () => {
   server = http.createServer((req, res) => {
+    if (req.url.startsWith('/prototypes/pathways/pathway-graph.xqy')) {
+      const filePath = path.join(__dirname, '..', 'echarts_graph.json');
+      return fs.readFile(filePath, (err, data) => {
+        if (err) {
+          res.statusCode = 404;
+          res.end('not found');
+        } else {
+          res.end(data);
+        }
+      });
+    }
+
     const file = req.url === '/' ? '/graph.html' : req.url;
     const filePath = path.join(__dirname, '..', file);
     fs.readFile(filePath, (err, data) => {
@@ -16,7 +28,7 @@ test.beforeAll(async () => {
         res.end(data);
       }
     });
-  }).listen(0);
+  }).listen(9324);
 });
 
 test.afterAll(() => {
@@ -26,6 +38,8 @@ test.afterAll(() => {
 test('graph has categories, pathway node, info panel updates, thin edges', async ({ page }) => {
   const base = `http://localhost:${server.address().port}`;
   await page.goto(base + '/graph.html');
+  await page.selectOption('#protein-uri', { value: 'protein/b22c31bd-9452-3c21-8dba-ce524c489003' });
+  await page.click('#go-button');
   await page.waitForFunction(() => document.getElementById('status').textContent.startsWith('ready'));
 
   const legendCount = await page.evaluate(() => (window.myChart.getOption().legend || [])[0]?.data.length || 0);
